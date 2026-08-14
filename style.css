@@ -31,17 +31,110 @@ body {
 
 body {
 
+    position:
+        relative;
+
     background:
 
         radial-gradient(
-            circle at center,
-            #111111 0%,
-            #030303 65%,
-            #000000 100%
+            ellipse at 50% 48%,
+            #18265c 0%,
+            #0b1235 28%,
+            #05091f 58%,
+            #02030d 82%,
+            #000006 100%
         );
 
     color:
         #241507;
+}
+
+
+/* =====================================
+   魔法空間の淡い光
+===================================== */
+
+body::before {
+
+    content:
+        "";
+
+    position:
+        fixed;
+
+    inset:
+        -30%;
+
+    pointer-events:
+        none;
+
+    background:
+
+        radial-gradient(
+            ellipse at 50% 50%,
+            rgba(
+                69,
+                91,
+                190,
+                0.16
+            ),
+            transparent 38%
+        ),
+
+        radial-gradient(
+            ellipse at 20% 30%,
+            rgba(
+                74,
+                44,
+                150,
+                0.12
+            ),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            ellipse at 80% 70%,
+            rgba(
+                38,
+                79,
+                170,
+                0.11
+            ),
+            transparent 32%
+        );
+
+    filter:
+        blur(30px);
+
+    animation:
+        magicAura
+        8s
+        ease-in-out
+        infinite alternate;
+}
+
+
+@keyframes magicAura {
+
+    0% {
+
+        transform:
+            scale(1)
+            rotate(0deg);
+
+        opacity:
+            0.7;
+    }
+
+    100% {
+
+        transform:
+            scale(1.12)
+            rotate(2deg);
+
+        opacity:
+            1;
+    }
 }
 
 
@@ -101,10 +194,6 @@ body {
 
 #intro {
 
-    /*
-     * 画面のど真ん中を基準
-     */
-
     display:
         flex;
 
@@ -137,22 +226,30 @@ body {
     letter-spacing:
         0.35em;
 
-    /*
-     * letter-spacingで右に
-     * 寄って見えるのを防止
-     */
-
     padding-left:
         0.35em;
 
     color:
         #e8d9ac;
 
+    text-shadow:
+
+        0 0 8px
+        rgba(
+            170,
+            190,
+            255,
+            0.18
+        );
+
     opacity:
         0;
 
     animation:
-        introAppear 2.2s ease forwards;
+        introAppear
+        2.2s
+        ease
+        forwards;
 }
 
 
@@ -180,7 +277,7 @@ body {
 
 
 /* =====================================
-   契約書
+   契約書画面
 ===================================== */
 
 #contract {
@@ -201,20 +298,20 @@ body {
         relative;
 
     /*
-     * 前より小さく
+     * ★ 縦をかなりコンパクトに
      */
 
     width:
         82vw;
 
     height:
-        82vh;
+        73vh;
 
     max-width:
         480px;
 
     max-height:
-        680px;
+        610px;
 
     opacity:
         0;
@@ -270,13 +367,8 @@ body {
     inset:
         0;
 
-    /*
-     * 小さくした分、
-     * 中の余白も少なめ
-     */
-
     padding:
-        3.5vh 5vw 4vh;
+        3vh 5vw 3vh;
 
     background:
 
@@ -298,27 +390,26 @@ body {
             #704d15 100%
         );
 
-    /*
-     * ギザギザなし
-     *
-     * ほんの少しだけ
-     * 自然な紙の丸み
-     */
-
     border-radius:
         2.5% 1.5% 3% 2%;
 
     box-shadow:
 
         0 0 30px
-        rgba(230,190,70,0.22),
+        rgba(
+            230,
+            190,
+            70,
+            0.22
+        ),
 
         0 25px 60px
-        rgba(0,0,0,0.95);
-
-    /*
-     * 消えるときに使う
-     */
+        rgba(
+            0,
+            0,
+            0,
+            0.95
+        );
 
     transform-origin:
         center center;
@@ -327,7 +418,7 @@ body {
 
 
 /* =====================================
-   紙の内側
+   紙の縁
 ===================================== */
 
 .paper-border {
@@ -340,7 +431,12 @@ body {
 
     border:
         1px solid
-        rgba(67,45,7,0.55);
+        rgba(
+            67,
+            45,
+            7,
+            0.55
+        );
 
     pointer-events:
         none;
@@ -373,20 +469,35 @@ body {
 
         radial-gradient(
             ellipse at 15% 15%,
-            rgba(255,240,170,0.28),
+            rgba(
+                255,
+                240,
+                170,
+                0.28
+            ),
             transparent 28%
         ),
 
         radial-gradient(
             ellipse at 82% 80%,
-            rgba(72,44,5,0.22),
+            rgba(
+                72,
+                44,
+                5,
+                0.22
+            ),
             transparent 32%
         ),
 
         radial-gradient(
             ellipse at 45% 45%,
             transparent 40%,
-            rgba(71,43,5,0.12) 100%
+            rgba(
+                71,
+                43,
+                5,
+                0.12
+            ) 100%
         );
 
     mix-blend-mode:
@@ -408,14 +519,10 @@ body {
         8;
 
     margin:
-        0 0 2vh;
+        0 0 1.5vh;
 
     text-align:
         center;
-
-    /*
-     * 本文と同じフォント
-     */
 
     font-family:
         "Italianno",
@@ -423,9 +530,9 @@ body {
 
     font-size:
         clamp(
-            3.2rem,
-            15vw,
-            4.6rem
+            3rem,
+            14vw,
+            4.5rem
         );
 
     font-weight:
@@ -434,15 +541,17 @@ body {
     line-height:
         0.9;
 
-    letter-spacing:
-        0;
-
     color:
         #1c1005;
 
     text-shadow:
         0.4px 0.4px 0
-        rgba(0,0,0,0.35);
+        rgba(
+            0,
+            0,
+            0,
+            0.35
+        );
 }
 
 
@@ -468,16 +577,16 @@ body {
 
     font-size:
         clamp(
-            1.12rem,
-            5vw,
-            1.5rem
+            1.08rem,
+            4.8vw,
+            1.45rem
         );
 
     font-weight:
         400;
 
     line-height:
-        1.22;
+        1.18;
 
     color:
         #241507;
@@ -490,14 +599,14 @@ body {
 .contract-body p {
 
     margin:
-        0 0 1.3vh;
+        0 0 1vh;
 }
 
 
 .contract-body p + p {
 
     margin-top:
-        0.3vh;
+        0.2vh;
 }
 
 
@@ -509,7 +618,7 @@ body {
 .final-title {
 
     margin-top:
-        1.5vh;
+        1.2vh;
 
     margin-bottom:
         0.5vh;
@@ -520,9 +629,9 @@ body {
 
     font-size:
         clamp(
-            2.15rem,
-            10vw,
-            3.1rem
+            2.05rem,
+            9.5vw,
+            3rem
         );
 
     line-height:
@@ -538,7 +647,7 @@ body {
 
 
 /* =====================================
-   文字が浮かび上がる
+   文字
 ===================================== */
 
 .char {
@@ -554,10 +663,15 @@ body {
         scale(0.97);
 
     filter:
-        blur(2.5px);
+        blur(2px);
 
     color:
-        rgba(25,12,3,0.05);
+        rgba(
+            25,
+            12,
+            3,
+            0.05
+        );
 }
 
 
@@ -578,15 +692,20 @@ body {
 
     text-shadow:
         0 0 1px
-        rgba(0,0,0,0.45);
+        rgba(
+            0,
+            0,
+            0,
+            0.45
+        );
 
     transition:
 
-        opacity 0.07s ease,
+        opacity 0.05s ease,
 
-        transform 0.07s ease,
+        transform 0.05s ease,
 
-        filter 0.11s ease;
+        filter 0.08s ease;
 }
 
 
@@ -607,7 +726,7 @@ body {
         10%;
 
     bottom:
-        5%;
+        4%;
 
     z-index:
         10;
@@ -648,10 +767,6 @@ body {
 
     transform:
         translateY(0);
-
-    /*
-     * ★ 怪しく光る ★
-     */
 
     animation:
         signatureGlow
@@ -705,7 +820,12 @@ body {
 
     border-bottom:
         2px solid
-        rgba(35,20,0,0.8);
+        rgba(
+            35,
+            20,
+            0,
+            0.8
+        );
 
     cursor:
         pointer;
@@ -725,7 +845,12 @@ body {
         filter:
             drop-shadow(
                 0 0 0
-                rgba(255,220,100,0)
+                rgba(
+                    255,
+                    220,
+                    100,
+                    0
+                )
             );
 
         opacity:
@@ -737,7 +862,12 @@ body {
         filter:
             drop-shadow(
                 0 0 13px
-                rgba(255,220,100,1)
+                rgba(
+                    255,
+                    220,
+                    100,
+                    1
+                )
             );
 
         opacity:
@@ -748,20 +878,29 @@ body {
 
 
 /* =====================================
-   契約書が消える
+   ★ 魔法による消滅 ★
 ===================================== */
 
 .paper-wrapper.disappearing {
 
     animation:
-        contractDisappear
-        1.35s
-        ease-in
+        magicalDisappearance
+        1.65s
+        cubic-bezier(
+            0.55,
+            0,
+            0.85,
+            0.2
+        )
         forwards;
 }
 
 
-@keyframes contractDisappear {
+@keyframes magicalDisappearance {
+
+    /*
+     * 最初
+     */
 
     0% {
 
@@ -773,28 +912,147 @@ body {
             rotate(0deg);
 
         filter:
-            brightness(1);
+            brightness(1)
+            blur(0);
+
+        box-shadow:
+
+            0 0 30px
+            rgba(
+                230,
+                190,
+                70,
+                0.22
+            ),
+
+            0 25px 60px
+            rgba(
+                0,
+                0,
+                0,
+                0.95
+            );
     }
 
-    25% {
 
-        filter:
-            brightness(1.5);
+    /*
+     * 魔力が集まる
+     */
 
-    }
-
-    55% {
+    20% {
 
         transform:
-            scale(1.04)
+            scale(1.015);
+
+        filter:
+            brightness(1.5)
+            blur(0);
+
+        box-shadow:
+
+            0 0 35px
+            rgba(
+                210,
+                220,
+                255,
+                0.7
+            ),
+
+            0 0 70px
+            rgba(
+                80,
+                110,
+                255,
+                0.5
+            );
+    }
+
+
+    /*
+     * 強烈に発光
+     */
+
+    42% {
+
+        transform:
+            scale(1.035)
             rotate(-1deg);
 
         filter:
-            brightness(1.9);
+            brightness(2.5)
+            blur(0.5px);
+
+        box-shadow:
+
+            0 0 45px
+            rgba(
+                220,
+                230,
+                255,
+                1
+            ),
+
+            0 0 100px
+            rgba(
+                80,
+                110,
+                255,
+                0.9
+            );
+    }
+
+
+    /*
+     * 紙が魔力に崩される
+     */
+
+    62% {
 
         opacity:
-            0.85;
+            0.78;
+
+        transform:
+            scale(0.97)
+            rotate(1deg);
+
+        filter:
+            brightness(2.8)
+            blur(2px);
+
+        box-shadow:
+
+            0 0 80px
+            rgba(
+                180,
+                200,
+                255,
+                1
+            );
     }
+
+
+    /*
+     * 中心へ吸い込まれる
+     */
+
+    82% {
+
+        opacity:
+            0.28;
+
+        transform:
+            scale(0.72)
+            rotate(3deg);
+
+        filter:
+            brightness(4)
+            blur(6px);
+    }
+
+
+    /*
+     * 完全消滅
+     */
 
     100% {
 
@@ -802,34 +1060,40 @@ body {
             0;
 
         transform:
-            scale(0.7)
-            rotate(3deg);
+            scale(0.15)
+            rotate(8deg);
 
         filter:
-            brightness(3)
-            blur(5px);
+            brightness(5)
+            blur(16px);
+
+        box-shadow:
+            0 0 0
+            rgba(
+                255,
+                255,
+                255,
+                0
+            );
     }
 }
 
 
 
 /* =====================================
-   キラキラ
+   魔法の粒子
 ===================================== */
 
-.sparkle {
+.magic-particle {
 
     position:
         absolute;
 
     z-index:
-        50;
+        100;
 
     display:
         block;
-
-    background:
-        #fff4a8;
 
     border-radius:
         50%;
@@ -837,23 +1101,39 @@ body {
     pointer-events:
         none;
 
+    background:
+        #dfe8ff;
+
     box-shadow:
 
         0 0 5px
-        #fff4a8,
+        #dfe8ff,
 
         0 0 12px
-        #e9c95d;
+        #839cff,
+
+        0 0 20px
+        rgba(
+            94,
+            119,
+            255,
+            0.8
+        );
 
     animation:
-        sparkleOut
-        1.2s
-        ease-out
+        magicParticleOut
+        1.45s
+        cubic-bezier(
+            0.2,
+            0.7,
+            0.3,
+            1
+        )
         forwards;
 }
 
 
-@keyframes sparkleOut {
+@keyframes magicParticleOut {
 
     0% {
 
@@ -868,7 +1148,8 @@ body {
             scale(0);
     }
 
-    20% {
+
+    12% {
 
         opacity:
             1;
@@ -880,6 +1161,25 @@ body {
             )
             scale(1.5);
     }
+
+
+    55% {
+
+        opacity:
+            0.9;
+
+        transform:
+            translate(
+                calc(
+                    var(--x) * 0.55
+                ),
+                calc(
+                    var(--y) * 0.55
+                )
+            )
+            scale(1);
+    }
+
 
     100% {
 
@@ -898,6 +1198,132 @@ body {
 
 
 /* =====================================
+   魔法の中心光
+===================================== */
+
+.magic-flash {
+
+    position:
+        absolute;
+
+    z-index:
+        90;
+
+    left:
+        50%;
+
+    top:
+        50%;
+
+    width:
+        20px;
+
+    height:
+        20px;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
+
+    border-radius:
+        50%;
+
+    pointer-events:
+        none;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+
+        0 0 10px
+        #ffffff,
+
+        0 0 30px
+        #b8c9ff,
+
+        0 0 70px
+        #718dff,
+
+        0 0 130px
+        rgba(
+            83,
+            111,
+            255,
+            0.9
+        );
+
+    animation:
+        magicFlash
+        1.55s
+        ease-out
+        forwards;
+}
+
+
+@keyframes magicFlash {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            translate(
+                -50%,
+                -50%
+            )
+            scale(0);
+    }
+
+
+    18% {
+
+        opacity:
+            1;
+
+        transform:
+            translate(
+                -50%,
+                -50%
+            )
+            scale(4);
+    }
+
+
+    45% {
+
+        opacity:
+            0.8;
+
+        transform:
+            translate(
+                -50%,
+                -50%
+            )
+            scale(15);
+    }
+
+
+    100% {
+
+        opacity:
+            0;
+
+        transform:
+            translate(
+                -50%,
+                -50%
+            )
+            scale(35);
+    }
+}
+
+
+
+/* =====================================
    小さいスマホ
 ===================================== */
 
@@ -909,14 +1335,14 @@ body {
             82vw;
 
         height:
-            84vh;
+            70vh;
     }
 
 
     .paper {
 
         padding:
-            3vh 4.5vw 3.5vh;
+            2.5vh 4.5vw 3vh;
     }
 
 
@@ -930,7 +1356,7 @@ body {
             );
 
         margin-bottom:
-            1.2vh;
+            1vh;
     }
 
 
@@ -938,20 +1364,20 @@ body {
 
         font-size:
             clamp(
-                0.98rem,
-                4.7vw,
-                1.3rem
+                0.96rem,
+                4.5vw,
+                1.25rem
             );
 
         line-height:
-            1.16;
+            1.14;
     }
 
 
     .contract-body p {
 
         margin-bottom:
-            0.8vh;
+            0.7vh;
     }
 
 
@@ -959,19 +1385,20 @@ body {
 
         font-size:
             clamp(
-                1.9rem,
+                1.85rem,
                 9vw,
-                2.7rem
+                2.6rem
             );
 
         margin-top:
-            0.8vh;
+            0.7vh;
     }
 
 
     .signature {
 
         bottom:
-            3.5%;
+            3%;
     }
+
 }
