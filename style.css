@@ -1,0 +1,977 @@
+/* =====================================
+   基本
+===================================== */
+
+* {
+
+    box-sizing:
+        border-box;
+
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+
+html,
+body {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    margin:
+        0;
+
+    overflow:
+        hidden;
+}
+
+
+body {
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            #111111 0%,
+            #030303 65%,
+            #000000 100%
+        );
+
+    color:
+        #241507;
+}
+
+
+
+/* =====================================
+   画面
+===================================== */
+
+.screen {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+
+    transition:
+        opacity 0.9s ease;
+}
+
+
+.screen.active {
+
+    opacity:
+        1;
+
+    pointer-events:
+        auto;
+}
+
+
+
+/* =====================================
+   「さあ、契約を。」
+===================================== */
+
+#intro {
+
+    /*
+     * 画面のど真ん中を基準
+     */
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    text-align:
+        center;
+}
+
+
+.intro-text {
+
+    font-family:
+
+        "Yu Mincho",
+        "Hiragino Mincho ProN",
+        serif;
+
+    font-size:
+        clamp(
+            1.5rem,
+            7vw,
+            2rem
+        );
+
+    letter-spacing:
+        0.35em;
+
+    /*
+     * letter-spacingで右に
+     * 寄って見えるのを防止
+     */
+
+    padding-left:
+        0.35em;
+
+    color:
+        #e8d9ac;
+
+    opacity:
+        0;
+
+    animation:
+        introAppear 2.2s ease forwards;
+}
+
+
+@keyframes introAppear {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(12px);
+    }
+
+    100% {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+
+/* =====================================
+   契約書
+===================================== */
+
+#contract {
+
+    padding:
+        2vh 4vw;
+}
+
+
+
+/* =====================================
+   紙Wrapper
+===================================== */
+
+.paper-wrapper {
+
+    position:
+        relative;
+
+    /*
+     * 前より小さく
+     */
+
+    width:
+        82vw;
+
+    height:
+        82vh;
+
+    max-width:
+        480px;
+
+    max-height:
+        680px;
+
+    opacity:
+        0;
+
+    transform:
+        scale(0.82)
+        translateY(35px);
+
+    filter:
+        brightness(0.12);
+
+    transition:
+
+        opacity 1.2s ease,
+
+        transform 1.5s
+        cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+        ),
+
+        filter 1.6s ease;
+}
+
+
+#contract.active
+.paper-wrapper {
+
+    opacity:
+        1;
+
+    transform:
+        scale(1)
+        translateY(0);
+
+    filter:
+        brightness(1);
+}
+
+
+
+/* =====================================
+   黄金の紙
+===================================== */
+
+.paper {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    /*
+     * 小さくした分、
+     * 中の余白も少なめ
+     */
+
+    padding:
+        3.5vh 5vw 4vh;
+
+    background:
+
+        linear-gradient(
+            110deg,
+
+            #76571d 0%,
+
+            #bb9439 15%,
+
+            #f1d579 35%,
+
+            #c39d45 50%,
+
+            #e6ca70 68%,
+
+            #aa8030 86%,
+
+            #704d15 100%
+        );
+
+    /*
+     * ギザギザなし
+     *
+     * ほんの少しだけ
+     * 自然な紙の丸み
+     */
+
+    border-radius:
+        2.5% 1.5% 3% 2%;
+
+    box-shadow:
+
+        0 0 30px
+        rgba(230,190,70,0.22),
+
+        0 25px 60px
+        rgba(0,0,0,0.95);
+
+    /*
+     * 消えるときに使う
+     */
+
+    transform-origin:
+        center center;
+}
+
+
+
+/* =====================================
+   紙の内側
+===================================== */
+
+.paper-border {
+
+    position:
+        absolute;
+
+    inset:
+        11px;
+
+    border:
+        1px solid
+        rgba(67,45,7,0.55);
+
+    pointer-events:
+        none;
+
+    z-index:
+        3;
+}
+
+
+
+/* =====================================
+   紙の質感
+===================================== */
+
+.paper-texture {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    pointer-events:
+        none;
+
+    opacity:
+        0.35;
+
+    background:
+
+        radial-gradient(
+            ellipse at 15% 15%,
+            rgba(255,240,170,0.28),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            ellipse at 82% 80%,
+            rgba(72,44,5,0.22),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            ellipse at 45% 45%,
+            transparent 40%,
+            rgba(71,43,5,0.12) 100%
+        );
+
+    mix-blend-mode:
+        multiply;
+}
+
+
+
+/* =====================================
+   Contract
+===================================== */
+
+.paper h1 {
+
+    position:
+        relative;
+
+    z-index:
+        8;
+
+    margin:
+        0 0 2vh;
+
+    text-align:
+        center;
+
+    /*
+     * 本文と同じフォント
+     */
+
+    font-family:
+        "Italianno",
+        cursive;
+
+    font-size:
+        clamp(
+            3.2rem,
+            15vw,
+            4.6rem
+        );
+
+    font-weight:
+        400;
+
+    line-height:
+        0.9;
+
+    letter-spacing:
+        0;
+
+    color:
+        #1c1005;
+
+    text-shadow:
+        0.4px 0.4px 0
+        rgba(0,0,0,0.35);
+}
+
+
+
+/* =====================================
+   本文
+===================================== */
+
+.contract-body {
+
+    position:
+        relative;
+
+    z-index:
+        8;
+
+    text-align:
+        center;
+
+    font-family:
+        "Italianno",
+        cursive;
+
+    font-size:
+        clamp(
+            1.12rem,
+            5vw,
+            1.5rem
+        );
+
+    font-weight:
+        400;
+
+    line-height:
+        1.22;
+
+    color:
+        #241507;
+
+    visibility:
+        hidden;
+}
+
+
+.contract-body p {
+
+    margin:
+        0 0 1.3vh;
+}
+
+
+.contract-body p + p {
+
+    margin-top:
+        0.3vh;
+}
+
+
+
+/* =====================================
+   For All Etenally
+===================================== */
+
+.final-title {
+
+    margin-top:
+        1.5vh;
+
+    margin-bottom:
+        0.5vh;
+
+    font-family:
+        "Italianno",
+        cursive;
+
+    font-size:
+        clamp(
+            2.15rem,
+            10vw,
+            3.1rem
+        );
+
+    line-height:
+        0.95;
+
+    text-align:
+        center;
+
+    color:
+        #241507;
+}
+
+
+
+/* =====================================
+   文字が浮かび上がる
+===================================== */
+
+.char {
+
+    display:
+        inline-block;
+
+    opacity:
+        0;
+
+    transform:
+        translateY(2px)
+        scale(0.97);
+
+    filter:
+        blur(2.5px);
+
+    color:
+        rgba(25,12,3,0.05);
+}
+
+
+.char.written {
+
+    opacity:
+        1;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    filter:
+        blur(0);
+
+    color:
+        #241507;
+
+    text-shadow:
+        0 0 1px
+        rgba(0,0,0,0.45);
+
+    transition:
+
+        opacity 0.07s ease,
+
+        transform 0.07s ease,
+
+        filter 0.11s ease;
+}
+
+
+
+/* =====================================
+   署名欄
+===================================== */
+
+.signature {
+
+    position:
+        absolute;
+
+    left:
+        10%;
+
+    right:
+        10%;
+
+    bottom:
+        5%;
+
+    z-index:
+        10;
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    gap:
+        13px;
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+
+    transform:
+        translateY(12px);
+
+    transition:
+
+        opacity 0.8s ease,
+
+        transform 0.8s ease;
+}
+
+
+.signature.ready {
+
+    opacity:
+        1;
+
+    pointer-events:
+        auto;
+
+    transform:
+        translateY(0);
+
+    /*
+     * ★ 怪しく光る ★
+     */
+
+    animation:
+        signatureGlow
+        1.5s
+        ease-in-out
+        infinite;
+}
+
+
+
+/* =====================================
+   name
+===================================== */
+
+.signature-name {
+
+    flex:
+        0 0 auto;
+
+    font-family:
+        "Italianno",
+        cursive;
+
+    font-size:
+        clamp(
+            1.65rem,
+            7vw,
+            2.3rem
+        );
+
+    line-height:
+        1;
+
+    color:
+        #241507;
+}
+
+
+
+/* =====================================
+   署名ライン
+===================================== */
+
+.signature-line {
+
+    flex:
+        1;
+
+    height:
+        1.9rem;
+
+    border-bottom:
+        2px solid
+        rgba(35,20,0,0.8);
+
+    cursor:
+        pointer;
+}
+
+
+
+/* =====================================
+   署名欄の怪しい光
+===================================== */
+
+@keyframes signatureGlow {
+
+    0%,
+    100% {
+
+        filter:
+            drop-shadow(
+                0 0 0
+                rgba(255,220,100,0)
+            );
+
+        opacity:
+            0.82;
+    }
+
+    50% {
+
+        filter:
+            drop-shadow(
+                0 0 13px
+                rgba(255,220,100,1)
+            );
+
+        opacity:
+            1;
+    }
+}
+
+
+
+/* =====================================
+   契約書が消える
+===================================== */
+
+.paper-wrapper.disappearing {
+
+    animation:
+        contractDisappear
+        1.35s
+        ease-in
+        forwards;
+}
+
+
+@keyframes contractDisappear {
+
+    0% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1)
+            rotate(0deg);
+
+        filter:
+            brightness(1);
+    }
+
+    25% {
+
+        filter:
+            brightness(1.5);
+
+    }
+
+    55% {
+
+        transform:
+            scale(1.04)
+            rotate(-1deg);
+
+        filter:
+            brightness(1.9);
+
+        opacity:
+            0.85;
+    }
+
+    100% {
+
+        opacity:
+            0;
+
+        transform:
+            scale(0.7)
+            rotate(3deg);
+
+        filter:
+            brightness(3)
+            blur(5px);
+    }
+}
+
+
+
+/* =====================================
+   キラキラ
+===================================== */
+
+.sparkle {
+
+    position:
+        absolute;
+
+    z-index:
+        50;
+
+    display:
+        block;
+
+    background:
+        #fff4a8;
+
+    border-radius:
+        50%;
+
+    pointer-events:
+        none;
+
+    box-shadow:
+
+        0 0 5px
+        #fff4a8,
+
+        0 0 12px
+        #e9c95d;
+
+    animation:
+        sparkleOut
+        1.2s
+        ease-out
+        forwards;
+}
+
+
+@keyframes sparkleOut {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            translate(
+                0,
+                0
+            )
+            scale(0);
+    }
+
+    20% {
+
+        opacity:
+            1;
+
+        transform:
+            translate(
+                0,
+                0
+            )
+            scale(1.5);
+    }
+
+    100% {
+
+        opacity:
+            0;
+
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(0);
+    }
+}
+
+
+
+/* =====================================
+   小さいスマホ
+===================================== */
+
+@media (max-height: 700px) {
+
+    .paper-wrapper {
+
+        width:
+            82vw;
+
+        height:
+            84vh;
+    }
+
+
+    .paper {
+
+        padding:
+            3vh 4.5vw 3.5vh;
+    }
+
+
+    .paper h1 {
+
+        font-size:
+            clamp(
+                2.8rem,
+                14vw,
+                4rem
+            );
+
+        margin-bottom:
+            1.2vh;
+    }
+
+
+    .contract-body {
+
+        font-size:
+            clamp(
+                0.98rem,
+                4.7vw,
+                1.3rem
+            );
+
+        line-height:
+            1.16;
+    }
+
+
+    .contract-body p {
+
+        margin-bottom:
+            0.8vh;
+    }
+
+
+    .final-title {
+
+        font-size:
+            clamp(
+                1.9rem,
+                9vw,
+                2.7rem
+            );
+
+        margin-top:
+            0.8vh;
+    }
+
+
+    .signature {
+
+        bottom:
+            3.5%;
+    }
+}
