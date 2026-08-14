@@ -166,6 +166,16 @@
 <script>
 
 /* =====================================
+   状態管理
+===================================== */
+
+let writing = false;
+let writingFinished = false;
+let signing = false;
+
+
+
+/* =====================================
    契約書を表示
 ===================================== */
 
@@ -181,10 +191,8 @@ setTimeout(() => {
 
 
     /*
-     * 紙が出現した直後、
-     * Contractだけが見えている時間。
-     *
-     * 今回はかなり短め。
+     * Contractが出てから
+     * 本文を書き始めるまで
      */
 
     setTimeout(() => {
@@ -192,7 +200,6 @@ setTimeout(() => {
         startWriting();
 
     }, 650);
-
 
 }, 2200);
 
@@ -210,25 +217,15 @@ function startWriting() {
         );
 
 
-    /*
-     * 本文を表示
-     */
-
     body.style.visibility =
         "visible";
 
 
+    writing = true;
+
+
     /*
-     * ---------------------------------
-     * 文字を分解
-     * ---------------------------------
-     *
-     * 空白文字はspanにしない。
-     *
-     * これが重要。
-     *
-     * 「空白文字のせいで一瞬止まる」
-     * 現象を防ぐ。
+     * 本文を一文字ずつspan化
      */
 
     function processNode(node) {
@@ -246,9 +243,8 @@ function startWriting() {
                 ...node.textContent
             ].forEach(char => {
 
-
                 /*
-                 * 空白・改行はそのまま残す
+                 * 空白はそのまま
                  */
 
                 if (
@@ -270,11 +266,14 @@ function startWriting() {
                         "span"
                     );
 
+
                 span.className =
                     "char";
 
+
                 span.textContent =
                     char;
+
 
                 fragment.appendChild(
                     span
@@ -321,21 +320,9 @@ function startWriting() {
         ];
 
 
-    /* =================================
-       なめらかに書く
-    ================================= */
-
     let index = 0;
 
     let lastTime = null;
-
-
-    /*
-     * 1文字あたりの時間。
-     *
-     * 16ms前後なので、
-     * かなりテンポよく進む。
-     */
 
     const speed = 15;
 
@@ -356,14 +343,6 @@ function startWriting() {
         const elapsed =
             time - lastTime;
 
-
-        /*
-         * 経過時間に応じて
-         * 何文字書くべきか計算。
-         *
-         * setTimeoutを大量に使わないので
-         * 不自然な「間」が出にくい。
-         */
 
         const count =
             Math.floor(
@@ -396,10 +375,6 @@ function startWriting() {
         }
 
 
-        /*
-         * まだ文字がある
-         */
-
         if (
             index <
             chars.length
@@ -413,20 +388,7 @@ function startWriting() {
 
         else {
 
-            /*
-             * 全文完成
-             */
-
-            setTimeout(() => {
-
-                document
-                    .getElementById(
-                        "signature"
-                    )
-                    .classList
-                    .add("ready");
-
-            }, 250);
+            finishWriting();
 
         }
 
@@ -437,12 +399,153 @@ function startWriting() {
         writeFrame
     );
 
+
+
+    /*
+     * =================================
+     * 画面タップによるスキップ用
+     * =================================
+     */
+
+    document.addEventListener(
+        "click",
+        handleWritingSkip,
+        {
+            once: false
+        }
+    );
+
 }
 
 
 
 /* =====================================
-   署名欄タップ
+   本文表示を完了
+===================================== */
+
+function finishWriting() {
+
+
+    if (
+        writingFinished
+    ) {
+
+        return;
+
+    }
+
+
+    writing =
+        false;
+
+    writingFinished =
+        true;
+
+
+    /*
+     * 残りの文字を全部表示
+     */
+
+    document
+        .querySelectorAll(
+            ".char"
+        )
+        .forEach(char => {
+
+            char.classList.add(
+                "written"
+            );
+
+        });
+
+
+    /*
+     * 署名欄を表示
+     */
+
+    setTimeout(() => {
+
+        const signature =
+            document.getElementById(
+                "signature"
+            );
+
+
+        signature.classList.add(
+            "ready"
+        );
+
+
+        /*
+         * 署名欄へカメラを寄せる
+         */
+
+        setTimeout(() => {
+
+            document
+                .getElementById(
+                    "paperWrapper"
+                )
+                .classList.add(
+                    "signature-focus"
+                );
+
+        }, 450);
+
+    }, 250);
+
+}
+
+
+
+/* =====================================
+   本文表示中のタップ
+===================================== */
+
+function handleWritingSkip(event) {
+
+
+    /*
+     * 本文を書いている最中だけ
+     */
+
+    if (
+        !writing ||
+        writingFinished
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * 署名欄を押した場合は無視
+     */
+
+    if (
+        event.target.closest(
+            "#signature"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * 一気に完成状態へ
+     */
+
+    finishWriting();
+
+}
+
+
+
+/* =====================================
+   署名欄
 ===================================== */
 
 document
@@ -455,23 +558,16 @@ document
     );
 
 
+
+/* =====================================
+   署名欄をタップ
+===================================== */
+
 function signContract() {
 
 
-    const wrapper =
-        document.getElementById(
-            "paperWrapper"
-        );
-
-
-    /*
-     * 二重タップ防止
-     */
-
     if (
-        wrapper.classList.contains(
-            "disappearing"
-        )
+        signing
     ) {
 
         return;
@@ -479,54 +575,8 @@ function signContract() {
     }
 
 
-    wrapper.classList.add(
-        "disappearing"
-    );
-
-
-    /*
-     * 魔法の粒子
-     */
-
-    createMagicParticles();
-
-
-    /*
-     * 魔法の光
-     */
-
-    createMagicFlash();
-
-
-    /*
-     * =================================
-     *
-     * ★★★ ここに移動先URLを書く ★★★
-     *
-     * 例：
-     *
-     * window.location.href =
-     * "https://example.com/";
-     *
-     * =================================
-     */
-
-    setTimeout(() => {
-
-        window.location.href =
-            "https://x.com/cos_ak00?s=11";
-
-    }, 1800);
-
-}
-
-
-
-/* =====================================
-   魔法の粒子
-===================================== */
-
-function createMagicParticles() {
+    signing =
+        true;
 
 
     const wrapper =
@@ -535,9 +585,71 @@ function createMagicParticles() {
         );
 
 
+    /*
+     * ズーム解除
+     */
+
+    wrapper.classList.remove(
+        "signature-focus"
+    );
+
+
+    /*
+     * 消滅開始
+     */
+
+    wrapper.classList.add(
+        "bottom-disappear"
+    );
+
+
+    /*
+     * 下から魔法粒子
+     */
+
+    createBottomMagic();
+
+
+
+    /*
+     * =================================
+     *
+     * ★★★ ここに移動先URLを書く ★★★
+     *
+     * =================================
+     */
+
+    setTimeout(() => {
+
+        window.location.href =
+            "ここにURL";
+
+    }, 1900);
+
+}
+
+
+
+/* =====================================
+   下から舞い上がる魔法
+===================================== */
+
+function createBottomMagic() {
+
+
+    const wrapper =
+        document.getElementById(
+            "paperWrapper"
+        );
+
+
+    /*
+     * 粒子を大量生成
+     */
+
     for (
         let i = 0;
-        i < 65;
+        i < 80;
         i++
     ) {
 
@@ -549,52 +661,52 @@ function createMagicParticles() {
 
 
         particle.className =
-            "magic-particle";
+            "bottom-particle";
 
 
         /*
-         * 紙の中心付近から発生
+         * 紙の下側から発生
          */
 
         particle.style.left =
             (
-                20 +
-                Math.random() * 60
+                5 +
+                Math.random() * 90
             ) + "%";
 
 
         particle.style.top =
             (
-                20 +
-                Math.random() * 60
+                65 +
+                Math.random() * 30
             ) + "%";
 
 
         /*
-         * ランダムな方向へ
+         * 横方向
          */
 
         particle.style.setProperty(
             "--x",
             (
-                Math.random() * 260 -
-                130
-            ) + "px"
-        );
-
-
-        particle.style.setProperty(
-            "--y",
-            (
-                Math.random() * 260 -
-                130
+                Math.random() * 120 -
+                60
             ) + "px"
         );
 
 
         /*
-         * 大きさ
+         * 上へ飛ぶ
          */
+
+        particle.style.setProperty(
+            "--y",
+            -(
+                40 +
+                Math.random() * 180
+            ) + "px"
+        );
+
 
         const size =
             2 +
@@ -609,13 +721,9 @@ function createMagicParticles() {
             size + "px";
 
 
-        /*
-         * 少しずつタイミングをずらす
-         */
-
         particle.style.animationDelay =
             (
-                Math.random() * 0.35
+                Math.random() * 0.7
             ) + "s";
 
 
@@ -631,44 +739,6 @@ function createMagicParticles() {
         }, 1900);
 
     }
-
-}
-
-
-
-/* =====================================
-   魔法の光
-===================================== */
-
-function createMagicFlash() {
-
-
-    const wrapper =
-        document.getElementById(
-            "paperWrapper"
-        );
-
-
-    const flash =
-        document.createElement(
-            "div"
-        );
-
-
-    flash.className =
-        "magic-flash";
-
-
-    wrapper.appendChild(
-        flash
-    );
-
-
-    setTimeout(() => {
-
-        flash.remove();
-
-    }, 1700);
 
 }
 
