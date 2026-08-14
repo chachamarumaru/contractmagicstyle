@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<title>Contract</title>
+
+
+<!-- =====================================
+     Webフォント
+===================================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Ballet&family=Italianno&display=swap"
+      rel="stylesheet">
+
+
+<style>
+
+/* =====================================
+   基本
+===================================== */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+
+    overflow: hidden;
+}
+
+body {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #101010 0%,
+            #030303 65%,
+            #000000 100%
+        );
+
+    color: #241507;
+}
+
+
+/* =====================================
+   画面
+===================================== */
+
+.screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.9s ease;
+}
+
+.screen.active {
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+/* =====================================
+   「さあ、契約を。」
+===================================== */
+
+#intro {
+
+    text-align: center;
+}
+
+.intro-text {
+
+    font-family:
+        "Yu Mincho",
+        "Hiragino Mincho ProN",
+        serif;
+
+    font-size:
+        clamp(1.5rem, 7vw, 2rem);
+
+    letter-spacing:
+        0.35em;
+
+    color:
+        #e8d9ac;
+
+    opacity: 0;
+
+    animation:
+        introAppear 2.5s ease forwards;
+}
+
+@keyframes introAppear {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(12px);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+}
+
+
+/* =====================================
+   契約書画面
+===================================== */
+
+#contract {
+
+    padding:
+        3vh 4vw;
+}
+
+
+/* =====================================
+   紙の外側
+===================================== */
+
+.paper-wrapper {
+
+    position: relative;
+
+    width: 91vw;
+
+    height: 90vh;
+
+    max-width: 520px;
+
+    max-height: 760px;
+
+    opacity: 0;
+
+    transform:
+        scale(0.72)
+        translateY(50px);
+
+    filter:
+        brightness(0.12);
+
+    transition:
+
+        opacity 1.5s ease,
+
+        transform 1.8s
+        cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+        ),
+
+        filter 2s ease;
+}
+
+
+#contract.active .paper-wrapper {
+
+    opacity: 1;
+
+    transform:
+        scale(1)
+        translateY(0);
+
+    filter:
+        brightness(1);
+}
+
+
+/* =====================================
+   紙本体
+===================================== */
+
+.paper {
+
+    position: absolute;
+
+    inset: 0;
+
+    padding:
+        4.5vh 6vw 5vh;
+
+    /*
+     * 黄金の紙
+     */
+
+    background:
+
+        linear-gradient(
+            110deg,
+            #72531a 0%,
+            #b68e35 13%,
+            #f1d578 32%,
+            #c09a42 48%,
+            #e5c76a 67%,
+            #a77d29 86%,
+            #674914 100%
+        );
+
+    /*
+     * 紙らしい細かな濃淡
+     */
+
+    background-blend-mode:
+        multiply;
+
+    /*
+     * 不規則な紙の輪郭
+     */
+
+    border-radius:
+        3% 2% 4% 2%
+        /
+        2% 4% 2% 3%;
+
+    /*
+     * 破れたような輪郭
+     */
+
+    clip-path:
+        polygon(
+
+            1% 2%,
+            6% 1%,
+            12% 2%,
+            19% 1%,
+            27% 2%,
+            35% 1%,
+            44% 2%,
+            52% 1%,
+            61% 2%,
+            70% 1%,
+            78% 2%,
+            86% 1%,
+            94% 3%,
+            98% 2%,
+
+            97% 10%,
+            99% 18%,
+            97% 27%,
+            98% 36%,
+            96% 44%,
+            99% 53%,
+            97% 62%,
+            98% 71%,
+            96% 81%,
+            98% 91%,
+
+            96% 98%,
+            87% 97%,
+            78% 99%,
+            68% 97%,
+            58% 99%,
+            49% 97%,
+            40% 99%,
+            31% 97%,
+            21% 99%,
+            12% 97%,
+            3% 99%,
+
+            2% 91%,
+            3% 82%,
+            1% 73%,
+            3% 64%,
+            1% 55%,
+            2% 46%,
+            1% 37%,
+            3% 28%,
+            1% 18%,
+            3% 10%
+        );
+
+    box-shadow:
+
+        0 0 30px
+        rgba(230,190,70,0.22),
+
+        0 35px 80px
+        rgba(0,0,0,0.95);
+}
+
+
+/* =====================================
+   紙の内側の縁
+===================================== */
+
+.paper-border {
+
+    position: absolute;
+
+    inset: 13px;
+
+    border:
+        1px solid
+        rgba(67,45,7,0.55);
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+
+/* =====================================
+   紙の古びた質感
+===================================== */
+
+.paper-texture {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.35;
+
+    background:
+
+        radial-gradient(
+            ellipse at 15% 15%,
+            rgba(255,240,170,0.28),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            ellipse at 82% 80%,
+            rgba(72,44,5,0.22),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            ellipse at 45% 45%,
+            transparent 40%,
+            rgba(71,43,5,0.12) 100%
+        );
+
+    mix-blend-mode:
+        multiply;
+}
+
+
+/* =====================================
+   丸まった紙の角
+===================================== */
+
+.paper-curl {
+
+    position: absolute;
+
+    width: 55px;
+
+    height: 55px;
+
+    pointer-events: none;
+
+    z-index: 6;
+}
+
+
+/*
+ * 左上
+ */
+
+.paper-curl.top-left {
+
+    top: 0;
+    left: 0;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,239,160,0.85),
+            rgba(154,111,30,0.5)
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            0 100%
+        );
+
+    filter:
+        drop-shadow(
+            3px 3px 4px
+            rgba(40,20,0,0.45)
+        );
+
+}
+
+
+/*
+ * 右下
+ */
+
+.paper-curl.bottom-right {
+
+    right: 0;
+    bottom: 0;
+
+    background:
+
+        linear-gradient(
+            315deg,
+            rgba(255,239,160,0.8),
+            rgba(120,82,18,0.5)
+        );
+
+    clip-path:
+        polygon(
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+
+    filter:
+        drop-shadow(
+            -3px -3px 4px
+            rgba(40,20,0,0.45)
+        );
+}
+
+
+/* =====================================
+   契約書タイトル
+===================================== */
+
+.paper h1 {
+
+    position: relative;
+
+    z-index: 8;
+
+    margin:
+        0 0 2.5vh;
+
+    text-align:
+        center;
+
+    /*
+     * 画像のContractに近い
+     * 大きなカリグラフィー
+     */
+
+    font-family:
+        "Ballet",
+        cursive;
+
+    font-size:
+        clamp(
+            3.2rem,
+            17vw,
+            5rem
+        );
+
+    font-weight:
+        400;
+
+    line-height:
+        0.9;
+
+    letter-spacing:
+        0;
+
+    color:
+        #1c1005;
+
+    /*
+     * インク感
+     */
+
+    text-shadow:
+        0.4px 0.4px 0
+        rgba(0,0,0,0.35);
+}
+
+
+/* =====================================
+   本文
+===================================== */
+
+.contract-body {
+
+    position:
+        relative;
+
+    z-index:
+        8;
+
+    /*
+     * 画像のように中央寄せ
+     */
+
+    text-align:
+        center;
+
+    /*
+     * 本文用の細い筆記体
+     */
+
+    font-family:
+        "Italianno",
+        cursive;
+
+    font-size:
+        clamp(
+            1.25rem,
+            5.7vw,
+            1.7rem
+        );
+
+    font-weight:
+        400;
+
+    line-height:
+        1.28;
+
+    color:
+        #241507;
+
+    visibility:
+        hidden;
+}
+
+
+/* =====================================
+   本文段落
+===================================== */
+
+.contract-body p {
+
+    margin:
+        0 0 1.6vh;
+
+}
+
+
+/*
+ * 段落間も大きく空けすぎない
+ *
+ * 「書き続けている」感じにする
+ */
+
+.contract-body p + p {
+
+    margin-top:
+        0.5vh;
+}
+
+
+/* =====================================
+   最後のタイトル
+===================================== */
+
+.final-title {
+
+    margin-top:
+        2vh;
+
+    margin-bottom:
+        0.5vh;
+
+    font-family:
+        "Ballet",
+        cursive;
+
+    font-size:
+        clamp(
+            2.2rem,
+            11vw,
+            3.4rem
+        );
+
+    line-height:
+        0.95;
+
+    color:
+        #241507;
+}
+
+
+/* =====================================
+   一文字ずつ書かれる文字
+===================================== */
+
+.char {
+
+    display:
+        inline-block;
+
+    opacity:
+        0;
+
+    transform:
+        translateY(2px)
+        scale(0.97);
+
+    filter:
+        blur(2.5px);
+
+    color:
+        rgba(25,12,3,0.05);
+}
+
+
+/*
+ * インクが紙に乗る
+ */
+
+.char.written {
+
+    opacity:
+        1;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    filter:
+        blur(0);
+
+    color:
+        #241507;
+
+    text-shadow:
+        0 0 1px
+        rgba(0,0,0,0.45);
+
+    transition:
+
+        opacity 0.07s ease,
+
+        transform 0.07s ease,
+
+        filter 0.11s ease;
+}
+
+
+/* =====================================
+   署名欄
+===================================== */
+
+.signature {
+
+    position:
+        absolute;
+
+    left:
+        10%;
+
+    right:
+        10%;
+
+    bottom:
+        5.5%;
+
+    z-index:
+        10;
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    gap:
+        15px;
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+
+    transform:
+        translateY(12px);
+
+    transition:
+
+        opacity 0.9s ease,
+
+        transform 0.9s ease;
+}
+
+
+/* =====================================
+   署名欄が出現
+===================================== */
+
+.signature.ready {
+
+    opacity:
+        1;
+
+    pointer-events:
+        auto;
+
+    transform:
+        translateY(0);
+
+    animation:
+        signatureGlow
+        1.7s
+        ease-in-out
+        infinite;
+}
+
+
+/* =====================================
+   name
+===================================== */
+
+.signature-name {
+
+    flex:
+        0 0 auto;
+
+    font-family:
+        "Italianno",
+        cursive;
+
+    font-size:
+        clamp(
+            1.7rem,
+            8vw,
+            2.5rem
+        );
+
+    line-height:
+        1;
+
+    color:
+        #241507;
+}
+
+
+/* =====================================
+   署名ライン
+===================================== */
+
+.signature-line {
+
+    flex:
+        1;
+
+    height:
+        2rem;
+
+    border-bottom:
+        2px solid
+        rgba(35,20,0,0.8);
+
+    cursor:
+        pointer;
+}
+
+
+/* =====================================
+   署名欄の怪しい光
+===================================== */
+
+@keyframes signatureGlow {
+
+    0%,
+    100% {
+
+        filter:
+            drop-shadow(
+                0 0 0
+                rgba(255,220,100,0)
+            );
+    }
+
+    50% {
+
+        filter:
+            drop-shadow(
+                0 0 12px
+                rgba(255,220,100,0.9)
+            );
+    }
+}
+
+
+/* =====================================
+   契約成立
+===================================== */
+
+#complete {
+
+    flex-direction:
+        column;
+
+    text-align:
+        center;
+}
+
+
+.complete-text {
+
+    font-family:
+        "Ballet",
+        cursive;
+
+    font-size:
+        clamp(
+            2rem,
+            10vw,
+            3rem
+        );
+
+    color:
+        #e8cf7c;
+}
+
+
+.complete-sub {
+
+    margin-top:
+        15px;
+
+    font-family:
+        "Times New Roman",
+        serif;
+
+    font-size:
+        0.65rem;
+
+    letter-spacing:
+        0.2em;
+
+    opacity:
+        0.6;
+}
+
+
+/* =====================================
+   小さいスマホ
+===================================== */
+
+@media (max-height: 700px) {
+
+    .paper {
+
+        padding:
+            3.5vh 5vw 4vh;
+    }
+
+    .paper h1 {
+
+        font-size:
+            clamp(
+                2.8rem,
+                15vw,
+                4rem
+            );
+
+        margin-bottom:
+            1.5vh;
+    }
+
+    .contract-body {
+
+        font-size:
+            clamp(
+                1.05rem,
+                5vw,
+                1.35rem
+            );
+
+        line-height:
+            1.18;
+    }
+
+    .contract-body p {
+
+        margin-bottom:
+            1vh;
+    }
+
+    .final-title {
+
+        font-size:
+            clamp(
+                1.9rem,
+                9vw,
+                2.8rem
+            );
+
+        margin-top:
+            1vh;
+    }
+
+    .signature {
+
+        bottom:
+            4%;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     ① 導入
+===================================== -->
+
+<section
+    id="intro"
+    class="screen active"
+>
+
+    <div class="intro-text">
+        さあ、契約を。
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     ② 契約書
+===================================== -->
+
+<section
+    id="contract"
+    class="screen"
+>
+
+    <div class="paper-wrapper">
+
+        <div class="paper">
+
+            <!-- 紙の質感 -->
+
+            <div class="paper-texture"></div>
+
+            <div class="paper-border"></div>
+
+
+            <!-- 丸まった角 -->
+
+            <div class="paper-curl top-left"></div>
+
+            <div class="paper-curl bottom-right"></div>
+
+
+            <!-- =================================
+                 Contract
+            ================================== -->
+
+            <h1>
+                Contract
+            </h1>
+
+
+            <!-- =================================
+                 本文
+            ================================== -->
+
+            <div
+                id="contractBody"
+                class="contract-body"
+            >
+
+                <p>
+                    Igivean XXto AzulAshengrotto bythis contrac.
+                </p>
+
+
+                <p>
+                    I promiseta achiarcan XXbyan XX farvalue with the provsothat Igetan XX,<br>
+                    but promisethat holdoutan XXuncondionally when I cannot achieve a promise here<br>
+                    Inadition, both assume the contents of this contract a secret andpromise that I da not do discosure usdessness.
+                </p>
+
+
+                <div class="final-title">
+                    For All Etenally.
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 署名
+            ================================== -->
+
+            <div
+                id="signature"
+                class="signature"
+            >
+
+                <div class="signature-name">
+                    name
+                </div>
+
+                <div
+                    class="signature-line"
+                    onclick="signContract()"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     ③ 契約成立
+===================================== -->
+
+<section
+    id="complete"
+    class="screen"
+>
+
+    <div class="complete-text">
+        CONTRACT ACCEPTED
+    </div>
+
+    <div class="complete-sub">
+        SIGNATURE ACCEPTED
+    </div>
+
+</section>
+
+
+
+<script>
+
+
+/* =====================================
+   契約書を出現
+===================================== */
+
+setTimeout(() => {
+
+
+    document
+        .getElementById("intro")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("contract")
+        .classList.add("active");
+
+
+    /*
+     * 紙が出現してから
+     *
+     * 2.2秒間
+     *
+     * 本文は完全に空白
+     */
+
+    setTimeout(() => {
+
+        startWriting();
+
+    }, 2200);
+
+
+}, 2000);
+
+
+
+/* =====================================
+   万年筆で書く演出
+===================================== */
+
+function startWriting() {
+
+
+    const body =
+        document.getElementById(
+            "contractBody"
+        );
+
+
+    /*
+     * ここで初めて本文を表示
+     */
+
+    body.style.visibility =
+        "visible";
+
+
+    /*
+     * テキストを一文字ずつ分解
+     */
+
+    function processNode(node) {
+
+
+        if (
+            node.nodeType ===
+            Node.TEXT_NODE
+        ) {
+
+
+            const fragment =
+                document
+                    .createDocumentFragment();
+
+
+            [
+                ...node.textContent
+            ].forEach(char => {
+
+
+                const span =
+                    document
+                        .createElement(
+                            "span"
+                        );
+
+
+                span.className =
+                    "char";
+
+
+                span.textContent =
+                    char;
+
+
+                fragment.appendChild(
+                    span
+                );
+
+            });
+
+
+            node.parentNode.replaceChild(
+                fragment,
+                node
+            );
+
+        }
+
+
+        else if (
+            node.nodeType ===
+            Node.ELEMENT_NODE
+        ) {
+
+
+            [
+                ...node.childNodes
+            ].forEach(
+                processNode
+            );
+
+        }
+
+    }
+
+
+    [
+        ...body.childNodes
+    ].forEach(
+        processNode
+    );
+
+
+    const chars =
+        body.querySelectorAll(
+            ".char"
+        );
+
+
+    /*
+     * 文字を書く速度
+     *
+     * 速めだけど、
+     * 一文字ずつ読める速度
+     */
+
+    let delay = 0;
+
+
+    chars.forEach(char => {
+
+
+        setTimeout(() => {
+
+            char.classList.add(
+                "written"
+            );
+
+        }, delay);
+
+
+        delay += 20;
+
+    });
+
+
+    /*
+     * 最後まで書き終わったら
+     * 署名欄を出現
+     */
+
+    setTimeout(() => {
+
+
+        document
+            .getElementById(
+                "signature"
+            )
+            .classList.add(
+                "ready"
+            );
+
+
+    }, delay + 500);
+
+}
+
+
+
+/* =====================================
+   署名
+===================================== */
+
+function signContract() {
+
+
+    const contract =
+        document.getElementById(
+            "contract"
+        );
+
+
+    const complete =
+        document.getElementById(
+            "complete"
+        );
+
+
+    /*
+     * 契約書が闇へ戻る
+     */
+
+    contract.classList.remove(
+        "active"
+    );
+
+
+    setTimeout(() => {
+
+
+        complete.classList.add(
+            "active"
+        );
+
+
+    }, 900);
+
+}
+
+</script>
+
+</body>
+</html>
