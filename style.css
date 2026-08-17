@@ -1,41 +1,25 @@
 /* =====================================
-   基本
+   基本設定
 ===================================== */
 
 * {
-
-    box-sizing:
-        border-box;
-
-    -webkit-tap-highlight-color:
-        transparent;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
-
 
 html,
 body {
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    margin:
-        0;
-
-    overflow:
-        hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-
 body {
-
-    position:
-        relative;
+    position: relative;
 
     background:
-
         radial-gradient(
             ellipse at 50% 48%,
             #18265c 0%,
@@ -45,67 +29,42 @@ body {
             #000006 100%
         );
 
-    color:
-        #241507;
+    color: #241507;
 }
 
 
-
 /* =====================================
-   魔法空間
+   魔法空間のオーラ
 ===================================== */
 
 body::before {
+    content: "";
 
-    content:
-        "";
+    position: fixed;
+    inset: -30%;
 
-    position:
-        fixed;
-
-    inset:
-        -30%;
-
-    pointer-events:
-        none;
+    pointer-events: none;
 
     background:
-
         radial-gradient(
             ellipse at 50% 50%,
-            rgba(
-                69,
-                91,
-                190,
-                0.16
-            ),
+            rgba(69, 91, 190, 0.16),
             transparent 38%
         ),
 
         radial-gradient(
             ellipse at 20% 30%,
-            rgba(
-                74,
-                44,
-                150,
-                0.12
-            ),
+            rgba(74, 44, 150, 0.12),
             transparent 32%
         ),
 
         radial-gradient(
             ellipse at 80% 70%,
-            rgba(
-                38,
-                79,
-                170,
-                0.11
-            ),
+            rgba(38, 79, 170, 0.11),
             transparent 32%
         );
 
-    filter:
-        blur(30px);
+    filter: blur(30px);
 
     animation:
         magicAura
@@ -114,30 +73,24 @@ body::before {
         infinite alternate;
 }
 
-
 @keyframes magicAura {
 
     0% {
-
         transform:
             scale(1)
             rotate(0deg);
 
-        opacity:
-            0.7;
+        opacity: 0.7;
     }
 
     100% {
-
         transform:
             scale(1.12)
             rotate(2deg);
 
-        opacity:
-            1;
+        opacity: 1;
     }
 }
-
 
 
 /* =====================================
@@ -145,74 +98,45 @@ body::before {
 ===================================== */
 
 .screen {
+    position: fixed;
+    inset: 0;
 
-    position:
-        fixed;
+    width: 100%;
+    height: 100%;
 
-    inset:
-        0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    width:
-        100%;
+    opacity: 0;
 
-    height:
-        100%;
-
-    display:
-        flex;
-
-    justify-content:
-        center;
-
-    align-items:
-        center;
-
-    opacity:
-        0;
-
-    pointer-events:
-        none;
+    pointer-events: none;
 
     transition:
         opacity 0.9s ease;
 }
 
-
 .screen.active {
-
-    opacity:
-        1;
-
-    pointer-events:
-        auto;
+    opacity: 1;
+    pointer-events: auto;
 }
-
 
 
 /* =====================================
-   さあ、契約を。
+   「さあ、契約を」
 ===================================== */
 
 #intro {
+    display: flex;
 
-    display:
-        flex;
+    justify-content: center;
+    align-items: center;
 
-    justify-content:
-        center;
-
-    align-items:
-        center;
-
-    text-align:
-        center;
+    text-align: center;
 }
 
-
 .intro-text {
-
     font-family:
-
         "Yu Mincho",
         "Hiragino Mincho ProN",
         serif;
@@ -224,17 +148,16 @@ body::before {
             2rem
         );
 
-    letter-spacing:
-        0.35em;
+    letter-spacing: 0.35em;
 
-    padding-left:
-        0.35em;
+    /*
+     * letter-spacing分のズレを補正
+     */
+    padding-left: 0.35em;
 
-    color:
-        #e8d9ac;
+    color: #e8d9ac;
 
     text-shadow:
-
         0 0 8px
         rgba(
             170,
@@ -243,8 +166,7 @@ body::before {
             0.18
         );
 
-    opacity:
-        0;
+    opacity: 0;
 
     animation:
         introAppear
@@ -253,22 +175,17 @@ body::before {
         forwards;
 }
 
-
 @keyframes introAppear {
 
     0% {
-
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translateY(12px);
     }
 
     100% {
-
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translateY(0);
@@ -276,47 +193,34 @@ body::before {
 }
 
 
-
 /* =====================================
-   契約書
+   契約書画面
 ===================================== */
 
 #contract {
-
     padding:
-        2vh 4vw;
+        2vh
+        4vw;
 }
 
 
-
 /* =====================================
-   紙
+   契約書全体
 ===================================== */
 
 .paper-wrapper {
-
-    position:
-        relative;
+    position: relative;
 
     /*
-     * 前回よりさらに少しだけ
-     * コンパクト
+     * スマホ向けに縦幅をかなり圧縮
      */
+    width: 82vw;
+    height: 57vh;
 
-    width:
-        82vw;
+    max-width: 480px;
+    max-height: 500px;
 
-    height:
-        45vh;
-
-    max-width:
-        480px;
-
-    max-height:
-        590px;
-
-    opacity:
-        0;
+    opacity: 0;
 
     transform:
         scale(0.82)
@@ -338,14 +242,21 @@ body::before {
         ),
 
         filter 1.6s ease;
+
+    /*
+     * 通常時も紙の下側を
+     * ズームの基準にする
+     */
+    transform-origin:
+        50% 82%;
 }
 
 
-#contract.active
-.paper-wrapper {
-
-    opacity:
-        1;
+/*
+ * 契約書画面がactiveになったとき
+ */
+#contract.active .paper-wrapper {
+    opacity: 1;
 
     transform:
         scale(1)
@@ -356,24 +267,24 @@ body::before {
 }
 
 
-
 /* =====================================
    黄金の紙
 ===================================== */
 
 .paper {
+    position: absolute;
 
-    position:
-        absolute;
+    inset: 0;
 
-    inset:
-        0;
-
+    /*
+     * 上下の余白をかなり削る
+     */
     padding:
-        2.8vh 5vw 2.5vh;
+        2.2vh
+        5vw
+        1.8vh;
 
     background:
-
         linear-gradient(
             110deg,
 
@@ -392,8 +303,14 @@ body::before {
             #704d15 100%
         );
 
+    /*
+     * 紙らしい丸み
+     */
     border-radius:
-        2.5% 1.5% 3% 2%;
+        2.5%
+        1.5%
+        3%
+        2%;
 
     box-shadow:
 
@@ -416,23 +333,18 @@ body::before {
     transform-origin:
         center center;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 }
 
 
-
 /* =====================================
-   紙の縁
+   紙の内側の枠
 ===================================== */
 
 .paper-border {
+    position: absolute;
 
-    position:
-        absolute;
-
-    inset:
-        11px;
+    inset: 11px;
 
     border:
         1px solid
@@ -443,13 +355,10 @@ body::before {
             0.55
         );
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
-    z-index:
-        3;
+    z-index: 3;
 }
-
 
 
 /* =====================================
@@ -457,18 +366,13 @@ body::before {
 ===================================== */
 
 .paper-texture {
+    position: absolute;
 
-    position:
-        absolute;
+    inset: 0;
 
-    inset:
-        0;
+    pointer-events: none;
 
-    pointer-events:
-        none;
-
-    opacity:
-        0.35;
+    opacity: 0.35;
 
     background:
 
@@ -505,51 +409,57 @@ body::before {
             ) 100%
         );
 
-    mix-blend-mode:
-        multiply;
+    mix-blend-mode: multiply;
 }
 
 
-
 /* =====================================
-   Contract
+   契約書タイトル
 ===================================== */
 
 .paper h1 {
+    position: relative;
 
-    position:
-        relative;
-
-    z-index:
-        8;
+    z-index: 8;
 
     margin:
-        0 0 1.2vh;
+        0
+        0
+        0.8vh;
 
-    text-align:
-        center;
+    text-align: center;
 
     font-family:
         "Italianno",
         cursive;
 
+    /*
+     * 今までよりかなり大きく
+     */
     font-size:
         clamp(
-            3rem,
-            14vw,
-            4.5rem
+            3.6rem,
+            17vw,
+            5.2rem
         );
 
-    font-weight:
-        400;
+    font-weight: 400;
 
-    line-height:
-        0.85;
+    line-height: 0.8;
 
-    color:
-        #1c1005;
+    color: #1c1005;
+
+    text-shadow:
+        0.4px
+        0.4px
+        0
+        rgba(
+            0,
+            0,
+            0,
+            0.35
+        );
 }
-
 
 
 /* =====================================
@@ -557,15 +467,11 @@ body::before {
 ===================================== */
 
 .contract-body {
+    position: relative;
 
-    position:
-        relative;
+    z-index: 8;
 
-    z-index:
-        8;
-
-    text-align:
-        center;
+    text-align: center;
 
     font-family:
         "Italianno",
@@ -578,40 +484,82 @@ body::before {
             1.45rem
         );
 
-    line-height:
-        1.16;
+    /*
+     * 行間を少し詰める
+     */
+    line-height: 1.10;
 
-    color:
-        #241507;
+    color: #241507;
 
-    visibility:
-        hidden;
+    visibility: hidden;
 }
-
-
-.contract-body p {
-
-    margin:
-        0 0 0.7vh;
-}
-
-
-.contract-body p + p {
-
-    margin-top:
-        0;
-}
-
 
 
 /* =====================================
-   For All Etenally
+   本文の段落
+===================================== */
+
+.contract-body p {
+    margin:
+        0
+        0
+        0.45vh;
+}
+
+.contract-body p + p {
+    margin-top: 0;
+}
+
+
+/* =====================================
+   本文の一文字ずつ表示
+===================================== */
+
+.char {
+    display: inline-block;
+
+    opacity: 0;
+
+    transform:
+        translateY(2px)
+        scale(0.97);
+
+    filter: blur(2px);
+}
+
+.char.written {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    filter: blur(0);
+
+    transition:
+
+        opacity
+        0.05s
+        ease,
+
+        transform
+        0.05s
+        ease,
+
+        filter
+        0.08s
+        ease;
+}
+
+
+/* =====================================
+   For All Etenally.
 ===================================== */
 
 .final-title {
+    margin-top: 0.5vh;
 
-    margin-top:
-        0.9vh;
+    margin-bottom: 0;
 
     font-family:
         "Italianno",
@@ -619,65 +567,17 @@ body::before {
 
     font-size:
         clamp(
-            2.05rem,
-            9.5vw,
-            3rem
+            2.2rem,
+            10vw,
+            3.2rem
         );
 
-    line-height:
-        0.9;
+    line-height: 0.85;
 
-    text-align:
-        center;
+    text-align: center;
 
-    color:
-        #241507;
+    color: #241507;
 }
-
-
-
-/* =====================================
-   文字
-===================================== */
-
-.char {
-
-    display:
-        inline-block;
-
-    opacity:
-        0;
-
-    transform:
-        translateY(2px)
-        scale(0.97);
-
-    filter:
-        blur(2px);
-}
-
-
-.char.written {
-
-    opacity:
-        1;
-
-    transform:
-        translateY(0)
-        scale(1);
-
-    filter:
-        blur(0);
-
-    transition:
-
-        opacity 0.05s ease,
-
-        transform 0.05s ease,
-
-        filter 0.08s ease;
-}
-
 
 
 /* =====================================
@@ -685,50 +585,40 @@ body::before {
 ===================================== */
 
 .signature {
+    position: absolute;
 
-    position:
-        absolute;
-
-    left:
-        8%;
-
-    right:
-        8%;
+    left: 8%;
+    right: 8%;
 
     /*
-     * 本文の直下に近づける
+     * 紙の下側に配置
      */
+    bottom: 3.5%;
 
-    bottom:
-        4%;
+    z-index: 10;
 
-    z-index:
-        10;
+    display: flex;
 
-    display:
-        flex;
+    align-items: flex-end;
 
-    align-items:
-        flex-end;
+    gap: 13px;
 
-    gap:
-        13px;
+    opacity: 0;
 
-    opacity:
-        0;
-
-    pointer-events:
-        none;
+    pointer-events: none;
 
     transform:
-        translateY(15px)
-        scale(0.95);
+        translateY(12px)
+        scale(0.92);
 
     transition:
 
-        opacity 0.6s ease,
+        opacity
+        0.6s
+        ease,
 
-        transform 0.7s
+        transform
+        0.7s
         cubic-bezier(
             0.16,
             1,
@@ -738,13 +628,13 @@ body::before {
 }
 
 
+/*
+ * 本文が全部書き終わった状態
+ */
 .signature.ready {
+    opacity: 1;
 
-    opacity:
-        1;
-
-    pointer-events:
-        auto;
+    pointer-events: auto;
 
     transform:
         translateY(0)
@@ -752,28 +642,36 @@ body::before {
 
     animation:
         signatureGlow
-        1.25s
+        1.1s
         ease-in-out
         infinite;
 }
-
 
 
 /* =====================================
    署名欄ズーム
 ===================================== */
 
+/*
+ * ここは今回かなり強くズーム
+ *
+ * 本文が見切れてもOK。
+ * 署名欄を主役にする。
+ */
 .paper-wrapper.signature-focus {
-
     transform:
-        scale(1.08)
-        translateY(
-            -3vh
-        );
+        scale(1.75)
+        translateY(-10vh);
+
+    /*
+     * 紙の下側を中心に拡大
+     */
+    transform-origin:
+        50% 82%;
 
     transition:
         transform
-        1.1s
+        1.15s
         cubic-bezier(
             0.16,
             1,
@@ -783,9 +681,10 @@ body::before {
 }
 
 
-.paper-wrapper.signature-focus
-.paper {
-
+/*
+ * ズーム中の紙
+ */
+.paper-wrapper.signature-focus .paper {
     box-shadow:
 
         0 0 35px
@@ -814,13 +713,11 @@ body::before {
 }
 
 
-
 /* =====================================
-   name
+   署名「name」
 ===================================== */
 
 .signature-name {
-
     flex:
         0 0 auto;
 
@@ -835,13 +732,10 @@ body::before {
             2.5rem
         );
 
-    line-height:
-        1;
+    line-height: 1;
 
-    color:
-        #241507;
+    color: #241507;
 }
-
 
 
 /* =====================================
@@ -849,12 +743,9 @@ body::before {
 ===================================== */
 
 .signature-line {
+    flex: 1;
 
-    flex:
-        1;
-
-    height:
-        2.2rem;
+    height: 2.2rem;
 
     border-bottom:
         2px solid
@@ -865,307 +756,484 @@ body::before {
             0.85
         );
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
-    /*
-     * タップできることを
-     * さらに分かりやすく
-     */
+    position: relative;
 
-    position:
-        relative;
+    transition:
+        transform
+        0.3s
+        ease;
 }
 
 
+/*
+ * ラインの下に光
+ */
 .signature-line::after {
+    content: "";
 
-    content:
-        "";
+    position: absolute;
 
-    position:
-        absolute;
+    left: -8px;
+    right: -8px;
 
-    left:
-        0;
+    bottom: -7px;
 
-    right:
-        0;
+    height: 10px;
 
-    bottom:
-        -3px;
-
-    height:
-        5px;
+    border-radius: 50%;
 
     background:
         rgba(
             255,
-            224,
-            105,
-            0.7
+            225,
+            90,
+            0.9
         );
 
-    filter:
-        blur(7px);
+    filter: blur(9px);
 
-    opacity:
-        0;
+    opacity: 0;
 
-    transition:
-        opacity 0.3s ease;
+    animation:
+        signatureLineGlow
+        1s
+        ease-in-out
+        infinite;
 }
 
 
+/*
+ * 署名欄が表示されたら光らせる
+ */
 .signature.ready
 .signature-line::after {
-
-    opacity:
-        1;
+    opacity: 1;
 }
-
 
 
 /* =====================================
-   署名欄の強い光
+   署名欄の強烈な光
 ===================================== */
 
 @keyframes signatureGlow {
 
     0%,
     100% {
-
         filter:
             drop-shadow(
-                0 0 2px
+                0 0 3px
                 rgba(
                     255,
                     220,
                     100,
-                    0.3
+                    0.5
                 )
             );
+
+        opacity: 0.88;
     }
 
     50% {
-
         filter:
+
             drop-shadow(
-                0 0 18px
+                0 0 8px
+                rgba(
+                    255,
+                    230,
+                    120,
+                    1
+                )
+            )
+
+            drop-shadow(
+                0 0 25px
                 rgba(
                     255,
                     220,
+                    80,
+                    0.95
+                )
+            )
+
+            drop-shadow(
+                0 0 45px
+                rgba(
                     100,
-                    1
+                    130,
+                    255,
+                    0.65
                 )
             );
+
+        opacity: 1;
     }
 }
 
 
+/* =====================================
+   署名ラインの脈動
+===================================== */
+
+@keyframes signatureLineGlow {
+
+    0%,
+    100% {
+        transform:
+            scaleX(0.75);
+
+        opacity: 0.45;
+    }
+
+    50% {
+        transform:
+            scaleX(1.05);
+
+        opacity: 1;
+    }
+}
+
 
 /* =====================================
-   ★ 下から消滅 ★
+   署名欄タップ時
+   下から焼け落ちる
 ===================================== */
 
 .paper-wrapper.bottom-disappear {
-
     animation:
-        bottomMagicDisappear
-        1.7s
+        paperBurnAway
+        2s
         ease-in
         forwards;
 }
 
 
-@keyframes bottomMagicDisappear {
+/* =====================================
+   紙そのものの焼失
+===================================== */
+
+@keyframes paperBurnAway {
 
     /*
-     * 最初
+     * 0%
+     * 普通の状態
      */
-
     0% {
-
-        opacity:
-            1;
-
-        transform:
-            scale(1.08)
-            translateY(-3vh);
+        clip-path:
+            inset(
+                0 0 0 0
+            );
 
         filter:
             brightness(1)
             blur(0);
+
+        opacity: 1;
     }
 
 
     /*
-     * 下から魔力が侵食
+     * 20%
+     * 下端から焼け始める
      */
-
-    25% {
+    20% {
+        clip-path:
+            inset(
+                0 0 12% 0
+            );
 
         filter:
-            brightness(1.3)
+            brightness(1.25)
             blur(0);
     }
 
 
     /*
-     * 発光
+     * 40%
      */
-
-    45% {
+    40% {
+        clip-path:
+            inset(
+                0 0 32% 0
+            );
 
         filter:
-            brightness(1.9)
-            blur(0.5px);
-
-        transform:
-            scale(1.09)
-            translateY(-3vh);
+            brightness(1.5)
+            blur(0.3px);
     }
 
 
     /*
-     * 下から消える
-     *
-     * clip-pathで下側を
-     * 徐々に削る
+     * 60%
      */
-
     60% {
-
         clip-path:
             inset(
-                0 0 35% 0
+                0 0 55% 0
+            );
+
+        filter:
+            brightness(1.8)
+            blur(0.8px);
+    }
+
+
+    /*
+     * 78%
+     */
+    78% {
+        clip-path:
+            inset(
+                0 0 76% 0
             );
 
         filter:
             brightness(2.2)
-            blur(1px);
+            blur(1.5px);
     }
 
 
-    75% {
-
+    /*
+     * 94%
+     */
+    94% {
         clip-path:
             inset(
-                0 0 65% 0
+                0 0 94% 0
             );
 
         filter:
             brightness(2.8)
-            blur(2px);
+            blur(3px);
+
+        opacity: 0.4;
     }
 
 
-    90% {
-
-        clip-path:
-            inset(
-                0 0 90% 0
-            );
-
-        opacity:
-            0.45;
-
-        filter:
-            brightness(3.5)
-            blur(4px);
-    }
-
-
+    /*
+     * 完全消滅
+     */
     100% {
-
         clip-path:
             inset(
                 0 0 100% 0
             );
 
-        opacity:
-            0;
-
-        transform:
-            scale(1.12)
-            translateY(-3vh);
-
         filter:
-            brightness(4)
-            blur(8px);
+            brightness(3.5)
+            blur(6px);
+
+        opacity: 0;
     }
 }
 
 
+/* =====================================
+   焼け落ちる境界
+   ※炎そのものは出さない
+===================================== */
+
+.paper::after {
+    content: "";
+
+    position: absolute;
+
+    left: -5%;
+    right: -5%;
+
+    bottom: -8px;
+
+    height: 35px;
+
+    z-index: 30;
+
+    pointer-events: none;
+
+    /*
+     * 白〜金色の光が
+     * 焼け落ちる境界になる
+     */
+    background:
+
+        radial-gradient(
+            ellipse at 10% 50%,
+            rgba(
+                255,
+                244,
+                180,
+                0.95
+            ) 0 4px,
+            transparent 8px
+        ),
+
+        radial-gradient(
+            ellipse at 25% 35%,
+            rgba(
+                255,
+                255,
+                255,
+                0.9
+            ) 0 3px,
+            transparent 8px
+        ),
+
+        radial-gradient(
+            ellipse at 43% 65%,
+            rgba(
+                255,
+                225,
+                120,
+                0.9
+            ) 0 5px,
+            transparent 10px
+        ),
+
+        radial-gradient(
+            ellipse at 64% 35%,
+            rgba(
+                255,
+                255,
+                255,
+                0.9
+            ) 0 3px,
+            transparent 8px
+        ),
+
+        radial-gradient(
+            ellipse at 82% 60%,
+            rgba(
+                255,
+                225,
+                120,
+                0.9
+            ) 0 4px,
+            transparent 9px
+        );
+
+    filter: blur(2px);
+
+    opacity: 0;
+}
+
+
+/*
+ * 消滅中だけ境界を動かす
+ */
+.paper-wrapper.bottom-disappear
+.paper::after {
+    animation:
+        burnEdge
+        2s
+        ease-in
+        forwards;
+}
+
 
 /* =====================================
-   下から舞い上がる魔法粒子
+   焼ける境界の移動
+===================================== */
+
+@keyframes burnEdge {
+
+    0% {
+        bottom: -8px;
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    45% {
+        bottom: 30%;
+
+        opacity: 1;
+    }
+
+    70% {
+        bottom: 60%;
+
+        opacity: 0.9;
+    }
+
+    90% {
+        bottom: 85%;
+
+        opacity: 0.7;
+    }
+
+    100% {
+        bottom: 100%;
+
+        opacity: 0;
+    }
+}
+
+
+/* =====================================
+   魔法の粒子
 ===================================== */
 
 .bottom-particle {
+    position: absolute;
 
-    position:
-        absolute;
+    z-index: 100;
 
-    z-index:
-        100;
+    display: block;
 
-    display:
-        block;
+    border-radius: 50%;
 
-    border-radius:
-        50%;
-
-    pointer-events:
-        none;
+    pointer-events: none;
 
     background:
-        #fff3a8;
+        #fff4b0;
 
     box-shadow:
 
         0 0 5px
-        #fff3a8,
+        #fff4b0,
 
         0 0 12px
-        #d8c36d,
+        #e5d276,
 
-        0 0 20px
+        0 0 22px
         rgba(
-            100,
             130,
+            150,
             255,
-            0.7
+            0.8
         );
 
     animation:
         bottomParticle
-        1.5s
+        1.7s
         ease-out
         forwards;
 }
 
 
+/* =====================================
+   魔法粒子の動き
+===================================== */
+
 @keyframes bottomParticle {
 
     0% {
-
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translate(
                 0,
-                30px
+                20px
             )
             scale(0);
     }
 
-
     15% {
-
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translate(
@@ -1175,11 +1243,23 @@ body::before {
             scale(1.4);
     }
 
+    45% {
+        opacity: 0.9;
+
+        transform:
+            translate(
+                calc(
+                    var(--x) * 0.5
+                ),
+                calc(
+                    var(--y) * 0.45
+                )
+            )
+            scale(1);
+    }
 
     100% {
-
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translate(
@@ -1191,46 +1271,43 @@ body::before {
 }
 
 
-
 /* =====================================
-   小さいスマホ
+   スマホ用
 ===================================== */
 
 @media (max-height: 700px) {
 
     .paper-wrapper {
+        width: 82vw;
 
-        width:
-            82vw;
+        height: 55vh;
 
-        height:
-            67vh;
+        max-height: 460px;
     }
 
 
     .paper {
-
         padding:
-            2.3vh 4.5vw 2.5vh;
+            2vh
+            4.5vw
+            1.5vh;
     }
 
 
     .paper h1 {
-
         font-size:
             clamp(
-                2.8rem,
-                14vw,
-                4rem
+                3.3rem,
+                16vw,
+                4.8rem
             );
 
         margin-bottom:
-            0.8vh;
+            0.5vh;
     }
 
 
     .contract-body {
-
         font-size:
             clamp(
                 0.96rem,
@@ -1238,36 +1315,109 @@ body::before {
                 1.25rem
             );
 
-        line-height:
-            1.12;
+        line-height: 1.08;
     }
 
 
     .contract-body p {
-
         margin-bottom:
-            0.5vh;
+            0.35vh;
     }
 
 
     .final-title {
-
         font-size:
             clamp(
-                1.85rem,
+                1.95rem,
                 9vw,
-                2.6rem
+                2.8rem
             );
 
         margin-top:
-            0.5vh;
+            0.35vh;
     }
 
 
     .signature {
-
-        bottom:
-            2.5%;
+        bottom: 2.5%;
     }
 
+
+    /*
+     * 小さい画面でも
+     * 署名欄をしっかりズーム
+     */
+    .paper-wrapper.signature-focus {
+        transform:
+            scale(1.7)
+            translateY(-9vh);
+    }
+}
+
+
+/* =====================================
+   極端に縦の短いスマホ
+===================================== */
+
+@media (max-height: 600px) {
+
+    .paper-wrapper {
+        width: 84vw;
+
+        height: 52vh;
+
+        max-height: 400px;
+    }
+
+
+    .paper {
+        padding:
+            1.5vh
+            4vw
+            1vh;
+    }
+
+
+    .paper h1 {
+        font-size:
+            clamp(
+                3rem,
+                15vw,
+                4.2rem
+            );
+    }
+
+
+    .contract-body {
+        font-size:
+            clamp(
+                0.85rem,
+                4vw,
+                1.1rem
+            );
+
+        line-height: 1.04;
+    }
+
+
+    .final-title {
+        font-size:
+            clamp(
+                1.7rem,
+                8vw,
+                2.4rem
+            );
+    }
+
+
+    .signature {
+        bottom: 2%;
+    }
+
+
+    .paper-wrapper.signature-focus {
+        transform:
+            scale(1.6)
+            translateY(-8vh);
+    }
 }
