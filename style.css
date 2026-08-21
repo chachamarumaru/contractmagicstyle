@@ -303,64 +303,46 @@ body::before {
      * 不規則な破れを作る。
      */
     clip-path:
-        polygon(
+    polygon(
 
-            /* ---------- 上 ---------- */
+        /* 上端 */
+        2% 1%,
+        98% 1%,
 
-            2% 1%,
-            98% 1%,
+        /* 右上：大きめの切れ込み */
+        98% 13%,
+        95.5% 16%,
+        98% 19%,
 
-            /* ---------- 右側 ---------- */
+        /* 右中央：何もなし */
+        98% 50%,
 
-            98% 13%,
+        /* 右下：切れ込み */
+        98% 76%,
+        95.8% 79%,
+        98% 82%,
 
-            96.2% 15%,
-            98% 17%,
+        /* 下端 */
+        98% 99%,
+        2% 99%,
 
-            98% 32%,
+        /* 左下〜中央 */
+        2% 72%,
 
-            96.5% 34%,
-            98% 37%,
+        /* 左中央：下側・小さめ */
+        2% 59%,
+        3.3% 58%,
+        2% 56.5%,
 
-            98% 53%,
+        /* 左中央：上側・大きめ */
+        2% 51%,
+        5.2% 46.5%,
+        2% 42%,
 
-            96.1% 55%,
-            98% 58%,
-
-            98% 74%,
-
-            96.4% 76%,
-            98% 79%,
-
-            98% 99%,
-
-            /* ---------- 下 ---------- */
-
-            2% 99%,
-
-            /* ---------- 左側 ---------- */
-
-            2% 82%,
-
-            3.7% 80%,
-            2% 77%,
-
-            2% 61%,
-
-            3.8% 59%,
-            2% 56%,
-
-            2% 40%,
-
-            3.5% 38%,
-            2% 35%,
-
-            2% 20%,
-
-            3.6% 18%,
-            2% 15%
-
-        );
+        /* 左上 */
+        2% 18%,
+        2% 1%
+    );
 
     box-shadow:
 
@@ -510,66 +492,161 @@ body::before {
 .paper-curl {
     position: absolute;
 
-    left: 7%;
-    right: 4%;
+    right: 3%;
+    bottom: -1px;
 
-    bottom: 0;
+    width: 25%;
+    height: 42px;
 
-    height: 22px;
-
-    z-index: 5;
+    z-index: 6;
 
     pointer-events: none;
 
+    /*
+     * 紙の端が手前に巻き上がっているようにする
+     */
     background:
         linear-gradient(
-            180deg,
-
-            rgba(
-                255,
-                224,
-                110,
-                0.9
-            ),
-
-            rgba(
-                157,
-                111,
-                28,
-                0.9
-            )
+            145deg,
+            rgba(255, 242, 160, 0.95) 0%,
+            rgba(224, 187, 79, 0.95) 28%,
+            rgba(145, 99, 24, 0.95) 58%,
+            rgba(74, 46, 8, 0.85) 100%
         );
 
+    /*
+     * 巻いた紙の形
+     */
     border-radius:
-        45%
-        45%
-        18%
-        22%;
+        5% 65% 12% 5%;
 
+    /*
+     * 立体的に手前へ巻く
+     */
     transform:
-        perspective(80px)
-        rotateX(8deg)
-        skewX(-3deg);
+        perspective(120px)
+        rotateX(28deg)
+        rotateY(-8deg)
+        rotateZ(-2deg);
 
+    transform-origin:
+        bottom right;
+
+    /*
+     * 内側の影＋外側の影
+     */
     box-shadow:
 
-        0 5px 7px
-        rgba(
-            45,
-            25,
-            0,
-            0.5
-        ),
-
-        inset 0 2px 4px
+        inset
+        5px
+        -5px
+        9px
         rgba(
             255,
-            245,
-            170,
-            0.6
+            239,
+            151,
+            0.55
+        ),
+
+        inset
+        -8px
+        8px
+        12px
+        rgba(
+            62,
+            35,
+            4,
+            0.55
+        ),
+
+        4px
+        7px
+        10px
+        rgba(
+            35,
+            20,
+            0,
+            0.55
         );
 }
 
+
+/*
+ * 巻いた紙の内側にできる
+ * 暗いカーブを追加
+ */
+.paper-curl::before {
+    content: "";
+
+    position: absolute;
+
+    right: 4%;
+    bottom: 8%;
+
+    width: 72%;
+    height: 55%;
+
+    border-radius:
+        50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(
+                45,
+                25,
+                2,
+                0.6
+            ) 0%,
+            rgba(
+                104,
+                68,
+                11,
+                0.35
+            ) 45%,
+            transparent 75%
+        );
+
+    filter:
+        blur(2px);
+
+    transform:
+        rotate(-8deg);
+}
+
+
+/*
+ * 巻いた紙の先端に
+ * 光が当たっている感じ
+ */
+.paper-curl::after {
+    content: "";
+
+    position: absolute;
+
+    right: 8%;
+    top: 5%;
+
+    width: 65%;
+    height: 18%;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            255,
+            241,
+            164,
+            0.75
+        );
+
+    filter:
+        blur(3px);
+
+    transform:
+        rotate(-8deg);
+}
 
 /* =====================================
    Contract タイトル
@@ -1021,7 +1098,7 @@ body::before {
 
     animation:
         tapFloat
-        1.35s
+        2.4s
         ease-in-out
         infinite;
 }
