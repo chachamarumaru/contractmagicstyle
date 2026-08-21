@@ -241,9 +241,6 @@ body::before {
         50% 82%;
 }
 
-
-/* 契約書出現 */
-
 #contract.active .paper-wrapper {
     opacity: 1;
 
@@ -257,6 +254,17 @@ body::before {
 
 
 /* =====================================
+   消滅用のアニメーション変数
+===================================== */
+
+@property --burn {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
+}
+
+
+/* =====================================
    黄金の紙
 ===================================== */
 
@@ -265,85 +273,186 @@ body::before {
 
     inset: 0;
 
-    /*
-     * 上下の余白を圧縮
-     */
     padding:
         2.2vh
         5vw
         1.8vh;
 
+    /*
+     * 黄金のグラデーション
+     */
     background:
         linear-gradient(
-            110deg,
+            108deg,
 
-            #76571d 0%,
-
-            #bb9439 15%,
-
-            #f1d579 35%,
-
-            #c39d45 50%,
-
-            #e6ca70 68%,
-
-            #aa8030 86%,
-
-            #704d15 100%
+            #76551a 0%,
+            #b88c32 13%,
+            #f2d675 34%,
+            #d1ad4e 52%,
+            #efd57b 70%,
+            #b38832 88%,
+            #704b13 100%
         );
 
-    border-radius:
-        2.5%
-        1.5%
-        3%
-        2%;
+    /*
+     * 完全な長方形ではなく
+     * 紙が少し破れているような輪郭
+     */
+    clip-path:
+        polygon(
+            2% 1%,
+            9% 0.7%,
+            15% 1.2%,
+            23% 0.4%,
+            31% 1.2%,
+            40% 0.3%,
+            48% 0%,
+            57% 0.8%,
+            67% 1%,
+            76% 0.4%,
+            84% 0.9%,
+            92% 0.5%,
+            98% 2%,
+
+            98.4% 9%,
+            97.2% 16%,
+            98.2% 23%,
+            97% 30%,
+            98.5% 38%,
+            97.2% 44%,
+            98.2% 51%,
+            97% 58%,
+            98.4% 66%,
+            97.2% 73%,
+            98.2% 81%,
+            97% 89%,
+            96% 97%,
+
+            90% 98.2%,
+            83% 97.5%,
+            76% 98.5%,
+            68% 97.5%,
+            60% 99%,
+            52% 98%,
+            45% 99%,
+            37% 98%,
+            29% 98.7%,
+            22% 98%,
+            14% 99%,
+            7% 97%,
+
+            4% 90%,
+            2.5% 82%,
+            3.4% 74%,
+            2% 66%,
+            3.5% 58%,
+            2.2% 50%,
+            3.5% 42%,
+            2% 34%,
+            3.5% 27%,
+            2% 19%,
+            3.2% 12%
+        );
 
     box-shadow:
 
-        0 0 30px
-        rgba(
-            230,
-            190,
-            70,
-            0.22
-        ),
-
-        0 25px 60px
+        0 18px 35px
         rgba(
             0,
             0,
             0,
-            0.95
+            0.65
         );
 
     transform-origin:
         center center;
 
-    overflow: hidden;
+    overflow: visible;
 }
 
 
 /* =====================================
-   紙の内側の枠
+   紙の端の陰影・厚み
 ===================================== */
 
-.paper-border {
+.paper::before {
+    content: "";
+
     position: absolute;
 
-    inset: 11px;
+    inset: 0;
 
-    border:
-        1px solid
-        rgba(
-            67,
-            45,
-            7,
-            0.55
-        );
+    z-index: 4;
 
     pointer-events: none;
 
-    z-index: 3;
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(
+                60,
+                35,
+                5,
+                0.3
+            ),
+            transparent 5%,
+            transparent 95%,
+            rgba(
+                55,
+                32,
+                4,
+                0.3
+            )
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(
+                255,
+                235,
+                150,
+                0.12
+            ),
+            transparent 9%,
+            transparent 88%,
+            rgba(
+                50,
+                28,
+                2,
+                0.35
+            )
+        );
+
+    clip-path:
+        polygon(
+            2% 1%,
+            15% 1%,
+            31% 1.2%,
+            48% 0%,
+            67% 1%,
+            84% 0.5%,
+            98% 2%,
+
+            98% 30%,
+            97% 58%,
+            98% 87%,
+
+            96% 97%,
+            83% 98%,
+            68% 97.5%,
+            52% 99%,
+            37% 98%,
+            22% 99%,
+            7% 97%,
+
+            4% 87%,
+            2% 73%,
+            3% 59%,
+            2% 46%,
+            3.5% 31%,
+            2% 17%
+        );
 }
 
 
@@ -400,6 +509,72 @@ body::before {
 
 
 /* =====================================
+   下端の丸まり
+===================================== */
+
+.paper-curl {
+    position: absolute;
+
+    left: 7%;
+    right: 4%;
+
+    bottom: 0;
+
+    height: 22px;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(
+                255,
+                224,
+                110,
+                0.9
+            ),
+            rgba(
+                157,
+                111,
+                28,
+                0.9
+            )
+        );
+
+    border-radius:
+        45%
+        45%
+        18%
+        22%;
+
+    transform:
+        perspective(80px)
+        rotateX(8deg)
+        skewX(-3deg);
+
+    box-shadow:
+
+        0 5px 7px
+        rgba(
+            45,
+            25,
+            0,
+            0.5
+        ),
+
+        inset 0 2px 4px
+        rgba(
+            255,
+            245,
+            170,
+            0.6
+        );
+}
+
+
+/* =====================================
    Contract タイトル
 ===================================== */
 
@@ -419,9 +594,6 @@ body::before {
         "Italianno",
         cursive;
 
-    /*
-     * タイトルは大きめ
-     */
     font-size:
         clamp(
             3.6rem,
@@ -507,7 +679,8 @@ body::before {
         translateY(2px)
         scale(0.97);
 
-    filter: blur(2px);
+    filter:
+        blur(2px);
 }
 
 .char.written {
@@ -517,7 +690,8 @@ body::before {
         translateY(0)
         scale(1);
 
-    filter: blur(0);
+    filter:
+        blur(0);
 
     transition:
 
@@ -540,9 +714,11 @@ body::before {
 ===================================== */
 
 .final-title {
-    margin-top: 0.5vh;
+    margin-top:
+        0.5vh;
 
-    margin-bottom: 0;
+    margin-bottom:
+        0;
 
     font-family:
         "Italianno",
@@ -555,11 +731,14 @@ body::before {
             3.2rem
         );
 
-    line-height: 0.85;
+    line-height:
+        0.85;
 
-    text-align: center;
+    text-align:
+        center;
 
-    color: #241507;
+    color:
+        #241507;
 }
 
 
@@ -635,19 +814,10 @@ body::before {
 
 .paper-wrapper.signature-focus {
 
-    /*
-     * 署名欄を画面中央へ
-     *
-     * 紙そのものをかなり拡大。
-     * 本文が画面外へ出てもOK。
-     */
     transform:
         translateY(-24vh)
         scale(2.0);
 
-    /*
-     * 下側を基準に拡大
-     */
     transform-origin:
         50% 82%;
 
@@ -663,7 +833,9 @@ body::before {
 }
 
 
-/* ズーム時の紙の光 */
+/* =====================================
+   ズーム中の紙の光
+===================================== */
 
 .paper-wrapper.signature-focus .paper {
 
@@ -714,9 +886,11 @@ body::before {
             2.5rem
         );
 
-    line-height: 1;
+    line-height:
+        1;
 
-    color: #241507;
+    color:
+        #241507;
 }
 
 
@@ -725,9 +899,11 @@ body::before {
 ===================================== */
 
 .signature-line {
-    flex: 1;
+    flex:
+        1;
 
-    height: 2.2rem;
+    height:
+        2.2rem;
 
     border-bottom:
         2px solid
@@ -738,9 +914,11 @@ body::before {
             0.85
         );
 
-    cursor: pointer;
+    cursor:
+        pointer;
 
-    position: relative;
+    position:
+        relative;
 
     transition:
         transform
@@ -813,7 +991,8 @@ body::before {
                 )
             );
 
-        opacity: 0.88;
+        opacity:
+            0.88;
     }
 
     50% {
@@ -850,7 +1029,8 @@ body::before {
                 )
             );
 
-        opacity: 1;
+        opacity:
+            1;
     }
 }
 
@@ -867,7 +1047,8 @@ body::before {
         transform:
             scaleX(0.75);
 
-        opacity: 0.45;
+        opacity:
+            0.45;
     }
 
     50% {
@@ -875,24 +1056,27 @@ body::before {
         transform:
             scaleX(1.05);
 
-        opacity: 1;
+        opacity:
+            1;
     }
 }
 
 
 /* =====================================
-   ★ 下から消滅 ★
+   ★★★ 契約書消滅 ★★★
 ===================================== */
 
 .paper-wrapper.bottom-disappear {
 
+    --burn: 0%;
+
     animation:
-        paperBurnAwaySmooth
-        2.2s
+        burnPaper
+        2.4s
         cubic-bezier(
-            0.45,
+            0.4,
             0,
-            0.55,
+            0.6,
             1
         )
         forwards;
@@ -900,124 +1084,173 @@ body::before {
 
 
 /* =====================================
-   紙そのものの発光
+   紙の消滅マスク
 ===================================== */
 
 .paper-wrapper.bottom-disappear
 .paper {
 
-    animation:
-        burningPaperGlow
-        2.2s
-        ease-in
-        forwards;
+    -webkit-mask-image:
+        linear-gradient(
+            to top,
+
+            transparent 0%,
+
+            transparent
+            calc(
+                var(--burn) - 4%
+            ),
+
+            rgba(
+                255,
+                255,
+                255,
+                0.35
+            )
+            var(--burn),
+
+            white
+            calc(
+                var(--burn) + 6%
+            ),
+
+            white 100%
+        );
+
+    mask-image:
+        linear-gradient(
+            to top,
+
+            transparent 0%,
+
+            transparent
+            calc(
+                var(--burn) - 4%
+            ),
+
+            rgba(
+                255,
+                255,
+                255,
+                0.35
+            )
+            var(--burn),
+
+            white
+            calc(
+                var(--burn) + 6%
+            ),
+
+            white 100%
+        );
 }
 
 
 /* =====================================
-   紙の消滅
-   段階的ではなく滑らかに
+   紙が下から滑らかに消える
 ===================================== */
 
-@keyframes paperBurnAwaySmooth {
+@keyframes burnPaper {
 
     0% {
 
-        clip-path:
-            inset(
-                0 0 0 0
-            );
+        --burn:
+            0%;
 
         filter:
             brightness(1)
             blur(0);
 
-        opacity: 1;
+        opacity:
+            1;
     }
 
-    15% {
+    20% {
 
-        clip-path:
-            inset(
-                0 0 10% 0
-            );
+        --burn:
+            18%;
 
         filter:
-            brightness(1.05)
+            brightness(1.08)
             blur(0);
+
+        opacity:
+            1;
     }
 
-    35% {
+    40% {
 
-        clip-path:
-            inset(
-                0 0 30% 0
-            );
+        --burn:
+            40%;
 
         filter:
-            brightness(1.15)
-            blur(0.2px);
+            brightness(1.18)
+            blur(0.1px);
+
+        opacity:
+            1;
     }
 
-    55% {
+    60% {
 
-        clip-path:
-            inset(
-                0 0 52% 0
-            );
+        --burn:
+            61%;
 
         filter:
             brightness(1.35)
-            blur(0.5px);
+            blur(0.3px);
+
+        opacity:
+            1;
     }
 
-    75% {
+    78% {
 
-        clip-path:
-            inset(
-                0 0 74% 0
-            );
+        --burn:
+            79%;
 
         filter:
-            brightness(1.7)
-            blur(1px);
+            brightness(1.6)
+            blur(0.7px);
+
+        opacity:
+            0.95;
     }
 
-    90% {
+    91% {
 
-        clip-path:
-            inset(
-                0 0 91% 0
-            );
+        --burn:
+            92%;
 
         filter:
-            brightness(2.2)
-            blur(2px);
+            brightness(2)
+            blur(1.5px);
 
-        opacity: 0.55;
+        opacity:
+            0.65;
     }
 
     100% {
 
-        clip-path:
-            inset(
-                0 0 100% 0
-            );
+        --burn:
+            104%;
 
         filter:
-            brightness(3)
-            blur(5px);
+            brightness(2.7)
+            blur(4px);
 
-        opacity: 0;
+        opacity:
+            0;
     }
 }
 
 
 /* =====================================
-   ★ 消える境界の超強力な光 ★
+   ★ 消滅境界の魔法光
+   紙の消滅位置と完全同期
 ===================================== */
 
-.paper::after {
+.paper-wrapper.bottom-disappear::after {
 
     content: "";
 
@@ -1026,128 +1259,73 @@ body::before {
     left: -15%;
     right: -15%;
 
-    bottom: -25px;
-
-    height: 90px;
-
-    z-index: 30;
-
-    pointer-events: none;
-
     /*
-     * 複数の光源を重ねる
-     * 端っこそのものが見えなくなるくらい
-     * 強く発光
+     * --burnと同じ値を使用
      */
+    bottom:
+        calc(
+            var(--burn) - 6%
+        );
+
+    height:
+        16%;
+
+    z-index:
+        100;
+
+    pointer-events:
+        none;
+
     background:
 
         radial-gradient(
-            ellipse at 10% 50%,
+            ellipse at center,
+
             rgba(
                 255,
                 255,
                 255,
                 1
             ) 0%,
+
             rgba(
                 255,
-                240,
-                150,
+                248,
+                190,
                 1
             ) 8%,
-            transparent 22%
-        ),
 
-        radial-gradient(
-            ellipse at 28% 35%,
             rgba(
                 255,
-                255,
-                255,
-                1
-            ) 0%,
-            rgba(
-                255,
-                226,
+                230,
                 100,
-                1
-            ) 9%,
-            transparent 25%
-        ),
+                0.95
+            ) 20%,
 
-        radial-gradient(
-            ellipse at 50% 60%,
             rgba(
                 255,
-                255,
-                255,
-                1
-            ) 0%,
-            rgba(
-                255,
-                231,
-                120,
-                1
-            ) 10%,
-            transparent 27%
-        ),
+                213,
+                65,
+                0.55
+            ) 38%,
 
-        radial-gradient(
-            ellipse at 72% 35%,
-            rgba(
-                255,
-                255,
-                255,
-                1
-            ) 0%,
-            rgba(
-                255,
-                226,
-                100,
-                1
-            ) 9%,
-            transparent 25%
-        ),
-
-        radial-gradient(
-            ellipse at 90% 55%,
-            rgba(
-                255,
-                255,
-                255,
-                1
-            ) 0%,
-            rgba(
-                255,
-                240,
-                150,
-                1
-            ) 8%,
-            transparent 22%
+            transparent 68%
         );
 
     filter:
-        blur(8px)
-        brightness(1.8);
+        blur(7px)
+        brightness(2.2);
 
-    opacity: 0;
-}
-
-
-/* =====================================
-   境界を滑らかに上へ移動
-===================================== */
-
-.paper-wrapper.bottom-disappear
-.paper::after {
+    opacity:
+        0;
 
     animation:
-        burnEdgeSmooth
-        2.2s
+        burnLight
+        2.4s
         cubic-bezier(
-            0.45,
+            0.4,
             0,
-            0.55,
+            0.6,
             1
         )
         forwards;
@@ -1155,85 +1333,62 @@ body::before {
 
 
 /* =====================================
-   光る境界の動き
+   消滅境界の光量
 ===================================== */
 
-@keyframes burnEdgeSmooth {
+@keyframes burnLight {
 
     0% {
-
-        bottom:
-            -8px;
-
         opacity:
             0;
-
-        transform:
-            scaleY(0.5);
     }
 
-    8% {
-
+    7% {
         opacity:
             1;
-
-        transform:
-            scaleY(1);
     }
 
-    25% {
-
-        bottom:
-            20%;
-
+    20% {
         opacity:
             1;
     }
 
     50% {
-
-        bottom:
-            48%;
-
         opacity:
             1;
     }
 
-    75% {
-
-        bottom:
-            74%;
-
+    80% {
         opacity:
-            0.95;
+            1;
     }
 
     92% {
-
-        bottom:
-            94%;
-
         opacity:
-            0.8;
+            0.9;
     }
 
     100% {
-
-        bottom:
-            104%;
-
         opacity:
             0;
-
-        transform:
-            scaleY(1.2);
     }
 }
 
 
 /* =====================================
-   紙そのものが徐々に発光
+   紙自体の発光
 ===================================== */
+
+.paper-wrapper.bottom-disappear
+.paper {
+
+    animation:
+        burningPaperGlow
+        2.4s
+        ease-in
+        forwards;
+}
+
 
 @keyframes burningPaperGlow {
 
@@ -1244,40 +1399,40 @@ body::before {
             saturate(1);
     }
 
-    30% {
+    25% {
 
         filter:
-            brightness(1.15)
+            brightness(1.08)
+            saturate(1.05);
+    }
+
+    50% {
+
+        filter:
+            brightness(1.25)
             saturate(1.1);
     }
 
-    55% {
+    70% {
 
         filter:
-            brightness(1.35)
-            saturate(1.15);
+            brightness(1.5)
+            saturate(1.18);
     }
 
-    75% {
+    88% {
 
         filter:
-            brightness(1.7)
-            saturate(1.2);
-    }
-
-    90% {
-
-        filter:
-            brightness(2.2)
-            saturate(1.3);
+            brightness(1.9)
+            saturate(1.25);
     }
 
     100% {
 
         filter:
-            brightness(3)
-            saturate(1.5)
-            blur(5px);
+            brightness(2.7)
+            saturate(1.4)
+            blur(4px);
     }
 }
 
@@ -1288,15 +1443,20 @@ body::before {
 
 .bottom-particle {
 
-    position: absolute;
+    position:
+        absolute;
 
-    z-index: 100;
+    z-index:
+        200;
 
-    display: block;
+    display:
+        block;
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
-    pointer-events: none;
+    pointer-events:
+        none;
 
     background:
         #fff4b0;
@@ -1333,7 +1493,8 @@ body::before {
 
     0% {
 
-        opacity: 0;
+        opacity:
+            0;
 
         transform:
             translate(
@@ -1345,7 +1506,8 @@ body::before {
 
     15% {
 
-        opacity: 1;
+        opacity:
+            1;
 
         transform:
             translate(
@@ -1357,7 +1519,8 @@ body::before {
 
     45% {
 
-        opacity: 0.9;
+        opacity:
+            0.9;
 
         transform:
             translate(
@@ -1373,7 +1536,8 @@ body::before {
 
     100% {
 
-        opacity: 0;
+        opacity:
+            0;
 
         transform:
             translate(
@@ -1393,13 +1557,15 @@ body::before {
 
     .paper-wrapper {
 
-        width: 82vw;
+        width:
+            82vw;
 
-        height: 55vh;
+        height:
+            55vh;
 
-        max-height: 460px;
+        max-height:
+            460px;
     }
-
 
     .paper {
 
@@ -1408,7 +1574,6 @@ body::before {
             4.5vw
             1.5vh;
     }
-
 
     .paper h1 {
 
@@ -1423,7 +1588,6 @@ body::before {
             0.5vh;
     }
 
-
     .contract-body {
 
         font-size:
@@ -1437,13 +1601,11 @@ body::before {
             1.08;
     }
 
-
     .contract-body p {
 
         margin-bottom:
             0.35vh;
     }
-
 
     .final-title {
 
@@ -1458,17 +1620,14 @@ body::before {
             0.35vh;
     }
 
-
     .signature {
 
         bottom:
             2.5%;
     }
 
-
     /*
-     * スマホでも署名欄を
-     * 画面中央へ
+     * 署名欄ズーム
      */
     .paper-wrapper.signature-focus {
 
@@ -1490,13 +1649,15 @@ body::before {
 
     .paper-wrapper {
 
-        width: 84vw;
+        width:
+            84vw;
 
-        height: 52vh;
+        height:
+            52vh;
 
-        max-height: 400px;
+        max-height:
+            400px;
     }
-
 
     .paper {
 
@@ -1505,7 +1666,6 @@ body::before {
             4vw
             1vh;
     }
-
 
     .paper h1 {
 
@@ -1516,7 +1676,6 @@ body::before {
                 4.2rem
             );
     }
-
 
     .contract-body {
 
@@ -1531,7 +1690,6 @@ body::before {
             1.04;
     }
 
-
     .final-title {
 
         font-size:
@@ -1542,13 +1700,11 @@ body::before {
             );
     }
 
-
     .signature {
 
         bottom:
             2%;
     }
-
 
     .paper-wrapper.signature-focus {
 
