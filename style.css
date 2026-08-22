@@ -136,6 +136,7 @@ body::before {
 }
 
 .intro-text {
+
     font-family:
         "Yu Mincho",
         "Hiragino Mincho ProN",
@@ -206,6 +207,7 @@ body::before {
 ===================================== */
 
 .paper-wrapper {
+
     position: relative;
 
     width: 82vw;
@@ -247,6 +249,7 @@ body::before {
 ===================================== */
 
 #contract.active .paper-wrapper {
+
     opacity: 1;
 
     transform:
@@ -259,21 +262,21 @@ body::before {
 
 
 /* =====================================
-   消滅用アニメーション変数
+   黄金の紙
 ===================================== */
 
 @property --burn {
+
     syntax: "<percentage>";
+
     inherits: true;
+
     initial-value: 0%;
 }
 
 
-/* =====================================
-   黄金の紙
-===================================== */
-
 .paper {
+
     position: absolute;
 
     inset: 0;
@@ -284,6 +287,7 @@ body::before {
         1.8vh;
 
     background:
+
         linear-gradient(
             108deg,
 
@@ -297,37 +301,38 @@ body::before {
         );
 
     clip-path:
-    polygon(
 
-        2% 1%,
-        98% 1%,
+        polygon(
 
-        98% 13%,
-        95.5% 16%,
-        98% 19%,
+            2% 1%,
+            98% 1%,
 
-        98% 50%,
+            98% 13%,
+            95.5% 16%,
+            98% 19%,
 
-        98% 76%,
-        95.8% 79%,
-        98% 82%,
+            98% 50%,
 
-        98% 99%,
-        2% 99%,
+            98% 76%,
+            95.8% 79%,
+            98% 82%,
 
-        2% 72%,
+            98% 99%,
+            2% 99%,
 
-        2% 59%,
-        3.3% 58%,
-        2% 56.5%,
+            2% 72%,
 
-        2% 51%,
-        5.2% 46.5%,
-        2% 42%,
+            2% 59%,
+            3.3% 58%,
+            2% 56.5%,
 
-        2% 18%,
-        2% 1%
-    );
+            2% 51%,
+            5.2% 46.5%,
+            2% 42%,
+
+            2% 18%,
+            2% 1%
+        );
 
     box-shadow:
 
@@ -351,6 +356,7 @@ body::before {
 ===================================== */
 
 .paper::before {
+
     content: "";
 
     position: absolute;
@@ -408,6 +414,7 @@ body::before {
         );
 
     clip-path:
+
         polygon(
             2% 1%,
             98% 1%,
@@ -422,6 +429,7 @@ body::before {
 ===================================== */
 
 .paper-texture {
+
     position: absolute;
 
     inset: 0;
@@ -471,16 +479,230 @@ body::before {
 
 
 /* =====================================
+   ★ 題名画像
+===================================== */
+
+.contract-title-image {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 5%;
+
+    transform:
+        translateX(-50%);
+
+    width: 72%;
+
+    height: auto;
+
+    z-index: 8;
+
+    display: block;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    animation:
+        titleAppear
+        0.9s
+        ease
+        0.4s
+        forwards;
+}
+
+
+/*
+ * 紙が出たあとに
+ * 題名がふわっと現れる
+ */
+
+@keyframes titleAppear {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(5px)
+            scale(0.96);
+
+        filter:
+            blur(2px);
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(1);
+
+        filter:
+            blur(0);
+    }
+}
+
+
+/* =====================================
+   本文
+===================================== */
+
+.contract-body {
+
+    position: absolute;
+
+    left: 7%;
+    right: 7%;
+
+    top: 25%;
+
+    z-index: 8;
+
+    text-align: center;
+
+    font-family:
+        "Great Vibes",
+        "Italianno",
+        cursive;
+
+    font-size:
+        clamp(
+            1.25rem,
+            5.4vw,
+            1.65rem
+        );
+
+    line-height:
+        1.18;
+
+    color:
+        #241507;
+
+    visibility:
+        hidden;
+}
+
+
+/* =====================================
+   本文段落
+===================================== */
+
+.contract-body p {
+
+    margin:
+        0
+        0
+        0.8vh;
+}
+
+
+/* =====================================
+   最後の一文
+===================================== */
+
+.final-title {
+
+    margin-top:
+        1.1vh !important;
+
+    margin-bottom:
+        0 !important;
+
+    font-family:
+        "Great Vibes",
+        "Italianno",
+        cursive;
+
+    font-size:
+        clamp(
+            2rem,
+            9vw,
+            2.9rem
+        );
+
+    line-height:
+        0.95;
+
+    text-align:
+        center;
+}
+
+
+/* =====================================
+   一文字ずつ書く
+===================================== */
+
+.char {
+
+    display:
+        inline-block;
+
+    opacity:
+        0;
+
+    transform:
+        translateY(3px)
+        rotate(1deg)
+        scale(0.96);
+
+    filter:
+        blur(2px);
+}
+
+
+/* =====================================
+   書かれた文字
+===================================== */
+
+.char.written {
+
+    opacity:
+        1;
+
+    transform:
+        translateY(0)
+        rotate(0)
+        scale(1);
+
+    filter:
+        blur(0);
+
+    transition:
+
+        opacity
+        0.12s
+        ease,
+
+        transform
+        0.12s
+        ease,
+
+        filter
+        0.16s
+        ease;
+}
+
+
+/* =====================================
    下端の丸まり
 ===================================== */
 
 .paper-curl {
+
     position: absolute;
 
     right: 3%;
+
     bottom: -1px;
 
     width: 25%;
+
     height: 42px;
 
     z-index: 6;
@@ -488,6 +710,7 @@ body::before {
     pointer-events: none;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(255, 242, 160, 0.95) 0%,
@@ -545,19 +768,24 @@ body::before {
 
 
 .paper-curl::before {
+
     content: "";
 
     position: absolute;
 
     right: 4%;
+
     bottom: 8%;
 
     width: 72%;
+
     height: 55%;
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
     background:
+
         radial-gradient(
             ellipse,
             rgba(
@@ -584,17 +812,21 @@ body::before {
 
 
 .paper-curl::after {
+
     content: "";
 
     position: absolute;
 
     right: 8%;
+
     top: 5%;
 
     width: 65%;
+
     height: 18%;
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
     background:
         rgba(
@@ -613,50 +845,43 @@ body::before {
 
 
 /* =====================================
-   手書き文字画像
+   署名欄
 ===================================== */
 
-.contract-text-image {
+.signature {
+
     position: absolute;
 
-    left: 5%;
-    top: 4%;
+    left: 8%;
 
-    width: 90%;
-    height: auto;
+    right: 8%;
 
-    z-index: 8;
+    bottom: 3.5%;
 
-    display: block;
+    z-index: 10;
 
-    pointer-events: none;
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 13px;
 
     opacity: 0;
 
-    /*
-     * 最初は少しぼかす
-     */
-
-    filter:
-        blur(4px)
-        brightness(0.8);
+    pointer-events: none;
 
     transform:
-        translateY(8px)
-        scale(0.985);
+        translateY(12px)
+        scale(0.92);
 
     transition:
 
         opacity
-        1.15s
-        ease,
-
-        filter
-        1.25s
+        0.7s
         ease,
 
         transform
-        1.25s
+        0.8s
         cubic-bezier(
             0.16,
             1,
@@ -667,84 +892,17 @@ body::before {
 
 
 /* =====================================
-   手書き文字表示
+   署名表示
 ===================================== */
 
-.contract-text-image.show {
-    opacity: 1;
-
-    filter:
-        blur(0)
-        brightness(1);
-
-    transform:
-        translateY(0)
-        scale(1);
-}
-
-
-/* =====================================
-   署名タップ領域
-===================================== */
-
-.signature-hitarea {
-    position: absolute;
-
-    /*
-     * ここを手書き署名の位置に合わせる
-     */
-
-    left: 12%;
-    right: 12%;
-
-    bottom: 3%;
-
-    height: 12%;
-
-    z-index: 30;
-
-    display: block;
-
-    padding: 0;
-
-    margin: 0;
-
-    border: 0;
-
-    background: transparent;
-
-    cursor: pointer;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transform:
-        scale(0.94);
-
-    transition:
-        opacity 0.6s ease,
-        transform 0.7s ease;
-
-    /*
-     * タップ領域が見えないようにする
-     */
-
-    outline: none;
-}
-
-
-/* =====================================
-   署名可能状態
-===================================== */
-
-.signature-hitarea.ready {
+.signature.ready {
 
     opacity: 1;
 
     pointer-events: auto;
 
     transform:
+        translateY(0)
         scale(1);
 
     animation:
@@ -756,10 +914,67 @@ body::before {
 
 
 /* =====================================
-   TAP表示
+   署名
 ===================================== */
 
-.signature-hitarea::before {
+.signature-name {
+
+    flex:
+        0 0 auto;
+
+    font-family:
+        "Great Vibes",
+        "Italianno",
+        cursive;
+
+    font-size:
+        clamp(
+            1.9rem,
+            8.5vw,
+            2.7rem
+        );
+
+    line-height:
+        1;
+
+    color:
+        #241507;
+}
+
+
+/* =====================================
+   署名ライン
+===================================== */
+
+.signature-line {
+
+    flex: 1;
+
+    height:
+        2.2rem;
+
+    border-bottom:
+        2px solid
+        rgba(
+            35,
+            20,
+            0,
+            0.85
+        );
+
+    cursor:
+        pointer;
+
+    position:
+        relative;
+}
+
+
+/* =====================================
+   TAP
+===================================== */
+
+.signature-line::before {
 
     content:
         "TAP";
@@ -821,7 +1036,8 @@ body::before {
 }
 
 
-.signature-hitarea.ready::before {
+.signature.ready
+.signature-line::before {
 
     animation:
         tapFloat
@@ -835,8 +1051,7 @@ body::before {
 
     0% {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translateX(-50%)
@@ -846,14 +1061,12 @@ body::before {
 
     20% {
 
-        opacity:
-            0.75;
+        opacity: 0.75;
     }
 
     50% {
 
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translateX(-50%)
@@ -863,14 +1076,12 @@ body::before {
 
     80% {
 
-        opacity:
-            0.8;
+        opacity: 0.8;
     }
 
     100% {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translateX(-50%)
@@ -881,13 +1092,12 @@ body::before {
 
 
 /* =====================================
-   署名部分の光
+   署名ラインの光
 ===================================== */
 
-.signature-hitarea::after {
+.signature-line::after {
 
-    content:
-        "";
+    content: "";
 
     position:
         absolute;
@@ -929,12 +1139,17 @@ body::before {
 }
 
 
-.signature-hitarea.ready::after {
+.signature.ready
+.signature-line::after {
 
     opacity:
         1;
 }
 
+
+/* =====================================
+   署名欄の発光
+===================================== */
 
 @keyframes signatureGlow {
 
@@ -1020,72 +1235,12 @@ body::before {
 
 
 /* =====================================
-   署名欄ズーム
-===================================== */
-
-.paper-wrapper.signature-focus {
-
-    transform:
-        translateY(-24vh)
-        scale(2.0);
-
-    transform-origin:
-        50% 82%;
-
-    transition:
-        transform
-        1.2s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        );
-}
-
-
-/* =====================================
-   ズーム中の紙
-===================================== */
-
-.paper-wrapper.signature-focus .paper {
-
-    box-shadow:
-
-        0 0 35px
-        rgba(
-            230,
-            190,
-            70,
-            0.35
-        ),
-
-        0 0 80px
-        rgba(
-            95,
-            120,
-            255,
-            0.18
-        ),
-
-        0 25px 60px
-        rgba(
-            0,
-            0,
-            0,
-            0.95
-        );
-}
-
-
-/* =====================================
-   契約書消滅
+   ★ 契約書消滅
 ===================================== */
 
 .paper-wrapper.bottom-disappear {
 
-    --burn:
-        0%;
+    --burn: 0%;
 
     animation:
         burnPaper
@@ -1112,8 +1267,7 @@ body::before {
         linear-gradient(
             to top,
 
-            transparent
-            0%,
+            transparent 0%,
 
             transparent
             calc(
@@ -1143,8 +1297,7 @@ body::before {
                 var(--burn) + 7%
             ),
 
-            white
-            100%
+            white 100%
         );
 
     mask-image:
@@ -1152,8 +1305,7 @@ body::before {
         linear-gradient(
             to top,
 
-            transparent
-            0%,
+            transparent 0%,
 
             transparent
             calc(
@@ -1183,25 +1335,18 @@ body::before {
                 var(--burn) + 7%
             ),
 
-            white
-            100%
+            white 100%
         );
 }
 
-
-/* =====================================
-   紙を最後まで消す
-===================================== */
 
 @keyframes burnPaper {
 
     0% {
 
-        --burn:
-            0%;
+        --burn: 0%;
 
-        opacity:
-            1;
+        opacity: 1;
 
         filter:
             brightness(1)
@@ -1210,11 +1355,9 @@ body::before {
 
     100% {
 
-        --burn:
-            120%;
+        --burn: 120%;
 
-        opacity:
-            0;
+        opacity: 0;
 
         filter:
             brightness(2.4)
@@ -1231,84 +1374,46 @@ body::before {
 
     content: "";
 
-    position:
-        absolute;
+    position: absolute;
 
-    left:
-        -18%;
+    left: -18%;
 
-    right:
-        -18%;
+    right: -18%;
 
     bottom:
         calc(
             var(--burn) - 7%
         );
 
-    height:
-        19%;
+    height: 19%;
 
-    z-index:
-        100;
+    z-index: 100;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
     background:
 
         radial-gradient(
             ellipse at center,
 
-            rgba(
-                255,
-                255,
-                255,
-                1
-            )
-            0%,
+            rgba(255,255,255,1) 0%,
 
-            rgba(
-                255,
-                250,
-                200,
-                1
-            )
-            7%,
+            rgba(255,250,200,1) 7%,
 
-            rgba(
-                255,
-                235,
-                120,
-                0.98
-            )
-            18%,
+            rgba(255,235,120,0.98) 18%,
 
-            rgba(
-                255,
-                215,
-                65,
-                0.7
-            )
-            35%,
+            rgba(255,215,65,0.7) 35%,
 
-            rgba(
-                255,
-                240,
-                170,
-                0.28
-            )
-            48%,
+            rgba(255,240,170,0.28) 48%,
 
-            transparent
-            72%
+            transparent 72%
         );
 
     filter:
         blur(7px)
         brightness(2.5);
 
-    opacity:
-        0;
+    opacity: 0;
 
     animation:
         burnLight
@@ -1323,30 +1428,22 @@ body::before {
 }
 
 
-/* =====================================
-   消滅境界の光
-===================================== */
-
 @keyframes burnLight {
 
     0% {
-        opacity:
-            0;
+        opacity: 0;
     }
 
     8% {
-        opacity:
-            1;
+        opacity: 1;
     }
 
     85% {
-        opacity:
-            1;
+        opacity: 1;
     }
 
     100% {
-        opacity:
-            0;
+        opacity: 0;
     }
 }
 
@@ -1411,25 +1508,20 @@ body::before {
 
 
 /* =====================================
-   魔法の粒子
+   魔法粒子
 ===================================== */
 
 .bottom-particle {
 
-    position:
-        absolute;
+    position: absolute;
 
-    z-index:
-        200;
+    z-index: 200;
 
-    display:
-        block;
+    display: block;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
     background:
         #fff4b0;
@@ -1462,8 +1554,7 @@ body::before {
 
     0% {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translate(
@@ -1475,8 +1566,7 @@ body::before {
 
     15% {
 
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translate(
@@ -1488,8 +1578,7 @@ body::before {
 
     45% {
 
-        opacity:
-            0.9;
+        opacity: 0.9;
 
         transform:
             translate(
@@ -1505,8 +1594,7 @@ body::before {
 
     100% {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translate(
@@ -1519,21 +1607,18 @@ body::before {
 
 
 /* =====================================
-   スマホ用
+   スマホ
 ===================================== */
 
 @media (max-height: 700px) {
 
     .paper-wrapper {
 
-        width:
-            82vw;
+        width: 82vw;
 
-        height:
-            55vh;
+        height: 55vh;
 
-        max-height:
-            460px;
+        max-height: 460px;
     }
 
     .paper {
@@ -1544,20 +1629,24 @@ body::before {
             1.5vh;
     }
 
-    .signature-hitarea {
+    .contract-body {
 
-        bottom:
-            2.5%;
+        font-size:
+            clamp(
+                1.08rem,
+                4.8vw,
+                1.4rem
+            );
     }
 
-    .paper-wrapper.signature-focus {
+    .final-title {
 
-        transform:
-            translateY(-24vh)
-            scale(2.0);
-
-        transform-origin:
-            50% 82%;
+        font-size:
+            clamp(
+                1.85rem,
+                8.5vw,
+                2.6rem
+            );
     }
 }
 
@@ -1570,14 +1659,11 @@ body::before {
 
     .paper-wrapper {
 
-        width:
-            84vw;
+        width: 84vw;
 
-        height:
-            52vh;
+        height: 52vh;
 
-        max-height:
-            400px;
+        max-height: 400px;
     }
 
     .paper {
@@ -1588,19 +1674,26 @@ body::before {
             1vh;
     }
 
-    .signature-hitarea {
+    .contract-body {
 
-        bottom:
-            2%;
+        font-size:
+            clamp(
+                0.98rem,
+                4.3vw,
+                1.18rem
+            );
+
+        line-height:
+            1.08;
     }
 
-    .paper-wrapper.signature-focus {
+    .final-title {
 
-        transform:
-            translateY(-24vh)
-            scale(2.0);
-
-        transform-origin:
-            50% 82%;
+        font-size:
+            clamp(
+                1.6rem,
+                8vw,
+                2.3rem
+            );
     }
 }
