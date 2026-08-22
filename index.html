@@ -84,30 +84,53 @@
         <div class="paper">
 
 
-            <!-- 紙の端 -->
+            <!-- =================================
+                 紙の丸まり
+            ================================== -->
 
             <div class="paper-curl"></div>
 
 
-            <!-- 紙の質感 -->
+            <!-- =================================
+                 紙の質感
+            ================================== -->
 
             <div class="paper-texture"></div>
 
 
             <!-- =================================
-                 手書き文字画像
+                 手書き文字
                  
-                 ここに
-                 題名
-                 本文
-                 署名
-                 を入れた透過PNGを置く
+                 元画像は1枚だけ。
+                 
+                 同じ画像を3枚重ねて、
+                 それぞれ担当する部分だけ
+                 表示する。
             ================================== -->
 
+
+            <!-- 題名 -->
             <img
                 src="contract-text.png"
-                class="contract-text-image"
-                id="contractTextImage"
+                class="contract-text title-layer"
+                alt=""
+            >
+
+
+            <!-- 本文 -->
+            <img
+                src="contract-text.png"
+                class="contract-text body-layer"
+                id="bodyLayer"
+                alt=""
+            >
+
+
+            <!-- 署名 -->
+            <img
+                src="contract-text.png"
+                class="contract-text signature-layer"
+                id="signatureLayer"
                 alt=""
             >
 
@@ -115,16 +138,19 @@
             <!-- =================================
                  署名タップ領域
 
-                 見た目は透明。
-                 画像の署名部分を押すための領域。
+                 見えない透明ボタン
             ================================== -->
 
             <button
                 type="button"
-                class="signature-hitarea"
                 id="signatureLine"
+                class="signature-hitarea"
                 aria-label="契約に署名する"
-            ></button>
+            >
+                <span class="tap-text">
+                    TAP
+                </span>
+            </button>
 
 
             <!-- 内側の枠 -->
@@ -149,7 +175,7 @@
 
 
 /* =====================================
-   状態管理
+   状態
 ===================================== */
 
 let writing = false;
@@ -158,7 +184,7 @@ let signing = false;
 
 
 /* =====================================
-   各要素
+   要素
 ===================================== */
 
 const intro =
@@ -170,8 +196,11 @@ const contract =
 const paperWrapper =
     document.getElementById("paperWrapper");
 
-const contractTextImage =
-    document.getElementById("contractTextImage");
+const bodyLayer =
+    document.getElementById("bodyLayer");
+
+const signatureLayer =
+    document.getElementById("signatureLayer");
 
 const signatureLine =
     document.getElementById("signatureLine");
@@ -181,13 +210,18 @@ const signatureLine =
    初期状態
 ===================================== */
 
-contractTextImage.classList.remove("show");
+bodyLayer.classList.remove("writing");
+
+signatureLayer.classList.remove("ready");
+
+signatureLine.classList.remove("ready");
 
 
 /* =====================================
-   ① 最初の画面
+   ①
+   「さあ、契約を。」
    ↓
-   ② 契約書表示
+   ② 契約書
 ===================================== */
 
 setTimeout(() => {
@@ -198,22 +232,22 @@ setTimeout(() => {
 
 
     /*
-     * 契約書が出てきてから
-     * 手書き文字を表示
+     * 紙と題名が出てきたあと、
+     * 少しだけ間を置いて本文開始
      */
 
     setTimeout(() => {
 
         startWriting();
 
-    }, 650);
+    }, 1100);
 
 }, 2200);
 
 
 
 /* =====================================
-   手書き文字を表示
+   本文を書き始める
 ===================================== */
 
 function startWriting() {
@@ -227,33 +261,27 @@ function startWriting() {
 
 
     /*
-     * 手書き文字画像を
-     * ふわっと表示
+     * 本文の手書き開始
      */
 
-    requestAnimationFrame(() => {
-
-        contractTextImage.classList.add("show");
-
-    });
+    bodyLayer.classList.add("writing");
 
 
     /*
-     * 少し時間を置いて
-     * 完成状態にする
-     *
-     * ここは文字量に応じて変更可能
+     * 3.8秒かけて
+     * 本文を書いていく
      */
 
     setTimeout(() => {
 
         finishWriting();
 
-    }, 1800);
+    }, 4000);
 
 
     /*
-     * 画面タップでスキップ
+     * 書いている途中に画面をタップすると
+     * 完成状態へスキップ
      */
 
     document.addEventListener(
@@ -266,7 +294,7 @@ function startWriting() {
 
 
 /* =====================================
-   本文表示完了
+   本文完成
 ===================================== */
 
 function finishWriting() {
@@ -282,27 +310,41 @@ function finishWriting() {
 
 
     /*
-     * 念のため完全表示
+     * 本文を完全表示
      */
 
-    contractTextImage.classList.add("show");
+    bodyLayer.classList.add("writing");
 
 
     /*
-     * タップできる状態にする
+     * CSSアニメーション終了後に
+     * 署名を出す
      */
 
     setTimeout(() => {
 
-        paperWrapper.classList.add(
-            "signature-focus"
-        );
-
-        signatureLine.classList.add(
+        signatureLayer.classList.add(
             "ready"
         );
 
-    }, 250);
+
+        /*
+         * 署名へカメラを寄せる
+         */
+
+        setTimeout(() => {
+
+            paperWrapper.classList.add(
+                "signature-focus"
+            );
+
+            signatureLine.classList.add(
+                "ready"
+            );
+
+        }, 500);
+
+    }, 300);
 
 
     /*
@@ -319,7 +361,7 @@ function finishWriting() {
 
 
 /* =====================================
-   文字表示中のタップ
+   本文を書いている途中のタップ
 ===================================== */
 
 function handleWritingSkip(event) {
@@ -333,7 +375,7 @@ function handleWritingSkip(event) {
 
 
     /*
-     * 署名部分を押した場合は無視
+     * 署名タップ領域は無視
      */
 
     if (
@@ -345,10 +387,6 @@ function handleWritingSkip(event) {
     }
 
 
-    /*
-     * 一気に表示
-     */
-
     finishWriting();
 
 }
@@ -356,7 +394,7 @@ function handleWritingSkip(event) {
 
 
 /* =====================================
-   署名
+   署名タップ
 ===================================== */
 
 signatureLine.addEventListener(
@@ -367,7 +405,7 @@ signatureLine.addEventListener(
 
 
 /* =====================================
-   契約に署名
+   契約
 ===================================== */
 
 function signContract() {
@@ -402,8 +440,7 @@ function signContract() {
 
 
     /*
-     * 少し間を置いて
-     * 消滅開始
+     * 次のフレームで消滅開始
      */
 
     requestAnimationFrame(() => {
@@ -416,7 +453,7 @@ function signContract() {
 
 
     /*
-     * 下から魔法粒子
+     * 魔法粒子
      */
 
     createBottomMagic();
@@ -424,9 +461,7 @@ function signContract() {
 
     /*
      * =================================
-     *
      * 移動先URL
-     *
      * =================================
      */
 
@@ -453,10 +488,6 @@ function createBottomMagic() {
         );
 
 
-    /*
-     * 粒子を大量生成
-     */
-
     for (
         let i = 0;
         i < 130;
@@ -474,7 +505,7 @@ function createBottomMagic() {
 
 
         /*
-         * 紙の下側から発生
+         * 発生位置
          */
 
         particle.style.left =
@@ -505,7 +536,7 @@ function createBottomMagic() {
 
 
         /*
-         * 上へ飛ぶ
+         * 上方向
          */
 
         particle.style.setProperty(
@@ -517,6 +548,10 @@ function createBottomMagic() {
         );
 
 
+        /*
+         * サイズ
+         */
+
         const size =
             2 +
             Math.random() * 6;
@@ -525,10 +560,13 @@ function createBottomMagic() {
         particle.style.width =
             size + "px";
 
-
         particle.style.height =
             size + "px";
 
+
+        /*
+         * ランダムなタイミング
+         */
 
         particle.style.animationDelay =
             (
