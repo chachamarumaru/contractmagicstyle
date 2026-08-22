@@ -82,6 +82,10 @@
     >
 
         <div class="paper">
+
+
+            <!-- 紙の端 -->
+
             <div class="paper-curl"></div>
 
 
@@ -89,13 +93,40 @@
 
             <div class="paper-texture"></div>
 
-    <img
-        src="contract-text.png"
-        class="contract-text-image"
-        alt=""
-    >
 
-    <div class="paper-curl"></div>
+            <!-- =================================
+                 手書き文字画像
+                 
+                 ここに
+                 題名
+                 本文
+                 署名
+                 を入れた透過PNGを置く
+            ================================== -->
+
+            <img
+                src="contract-text.png"
+                class="contract-text-image"
+                id="contractTextImage"
+                alt=""
+            >
+
+
+            <!-- =================================
+                 署名タップ領域
+
+                 見た目は透明。
+                 画像の署名部分を押すための領域。
+            ================================== -->
+
+            <button
+                type="button"
+                class="signature-hitarea"
+                id="signatureLine"
+                aria-label="契約に署名する"
+            ></button>
+
+
             <!-- 内側の枠 -->
 
             <div class="paper-border"></div>
@@ -114,6 +145,9 @@
 
 <script>
 
+"use strict";
+
+
 /* =====================================
    状態管理
 ===================================== */
@@ -123,25 +157,49 @@ let writingFinished = false;
 let signing = false;
 
 
+/* =====================================
+   各要素
+===================================== */
+
+const intro =
+    document.getElementById("intro");
+
+const contract =
+    document.getElementById("contract");
+
+const paperWrapper =
+    document.getElementById("paperWrapper");
+
+const contractTextImage =
+    document.getElementById("contractTextImage");
+
+const signatureLine =
+    document.getElementById("signatureLine");
+
 
 /* =====================================
-   契約書を表示
+   初期状態
+===================================== */
+
+contractTextImage.classList.remove("show");
+
+
+/* =====================================
+   ① 最初の画面
+   ↓
+   ② 契約書表示
 ===================================== */
 
 setTimeout(() => {
 
-    document
-        .getElementById("intro")
-        .classList.remove("active");
+    intro.classList.remove("active");
 
-    document
-        .getElementById("contract")
-        .classList.add("active");
+    contract.classList.add("active");
 
 
     /*
-     * Contractが出てから
-     * 本文を書き始めるまで
+     * 契約書が出てきてから
+     * 手書き文字を表示
      */
 
     setTimeout(() => {
@@ -155,336 +213,140 @@ setTimeout(() => {
 
 
 /* =====================================
-   本文を書く
+   手書き文字を表示
 ===================================== */
 
 function startWriting() {
 
-    const body =
-        document.getElementById(
-            "contractBody"
-        );
-
-
-    body.style.visibility =
-        "visible";
+    if (writingFinished) {
+        return;
+    }
 
 
     writing = true;
 
 
     /*
-     * 本文を一文字ずつspan化
+     * 手書き文字画像を
+     * ふわっと表示
      */
 
-    function processNode(node) {
+    requestAnimationFrame(() => {
 
-        if (
-            node.nodeType ===
-            Node.TEXT_NODE
-        ) {
+        contractTextImage.classList.add("show");
 
-            const fragment =
-                document.createDocumentFragment();
-
-
-            [
-                ...node.textContent
-            ].forEach(char => {
-
-                /*
-                 * 空白はそのまま
-                 */
-
-                if (
-                    /\s/.test(char)
-                ) {
-
-                    fragment.appendChild(
-                        document.createTextNode(
-                            char
-                        )
-                    );
-
-                    return;
-                }
-
-
-                const span =
-                    document.createElement(
-                        "span"
-                    );
-
-
-                span.className =
-                    "char";
-
-
-                span.textContent =
-                    char;
-
-
-                fragment.appendChild(
-                    span
-                );
-
-            });
-
-
-            node.parentNode.replaceChild(
-                fragment,
-                node
-            );
-
-        }
-
-        else if (
-            node.nodeType ===
-            Node.ELEMENT_NODE
-        ) {
-
-            [
-                ...node.childNodes
-            ].forEach(
-                processNode
-            );
-
-        }
-
-    }
-
-
-    [
-        ...body.childNodes
-    ].forEach(
-        processNode
-    );
-
-
-    const chars =
-        [
-            ...body.querySelectorAll(
-                ".char"
-            )
-        ];
-
-
-    let index = 0;
-
-    let lastTime = null;
-
-    const speed = 15;
-
-
-    function writeFrame(time) {
-
-
-        if (
-            lastTime === null
-        ) {
-
-            lastTime =
-                time;
-
-        }
-
-
-        const elapsed =
-            time - lastTime;
-
-
-        const count =
-            Math.floor(
-                elapsed / speed
-            );
-
-
-        if (
-            count > 0
-        ) {
-
-            for (
-                let i = 0;
-                i < count &&
-                index < chars.length;
-                i++
-            ) {
-
-                chars[index]
-                    .classList
-                    .add("written");
-
-                index++;
-
-            }
-
-
-            lastTime =
-                time;
-        }
-
-
-        if (
-            index <
-            chars.length
-        ) {
-
-            requestAnimationFrame(
-                writeFrame
-            );
-
-        }
-
-        else {
-
-            finishWriting();
-
-        }
-
-    }
-
-
-    requestAnimationFrame(
-        writeFrame
-    );
-
+    });
 
 
     /*
-     * =================================
-     * 画面タップによるスキップ用
-     * =================================
-     */
-
-    document.addEventListener(
-        "click",
-        handleWritingSkip,
-        {
-            once: false
-        }
-    );
-
-}
-
-
-
-/* =====================================
-   本文表示を完了
-===================================== */
-
-function finishWriting() {
-
-
-    if (
-        writingFinished
-    ) {
-
-        return;
-
-    }
-
-
-    writing =
-        false;
-
-    writingFinished =
-        true;
-
-
-    /*
-     * 残りの文字を全部表示
-     */
-
-    document
-        .querySelectorAll(
-            ".char"
-        )
-        .forEach(char => {
-
-            char.classList.add(
-                "written"
-            );
-
-        });
-
-
-    /*
-     * 署名欄を表示
+     * 少し時間を置いて
+     * 完成状態にする
+     *
+     * ここは文字量に応じて変更可能
      */
 
     setTimeout(() => {
 
-        const signature =
-            document.getElementById(
-                "signature"
-            );
+        finishWriting();
+
+    }, 1800);
 
 
-        signature.classList.add(
-            "ready"
-        );
+    /*
+     * 画面タップでスキップ
+     */
 
-
-        /*
-         * 署名欄へカメラを寄せる
-         */
-
-        setTimeout(() => {
-
-            document
-                .getElementById(
-                    "paperWrapper"
-                )
-                .classList.add(
-                    "signature-focus"
-                );
-
-        }, 450);
-
-    }, 250);
+    document.addEventListener(
+        "click",
+        handleWritingSkip
+    );
 
 }
 
 
 
 /* =====================================
-   本文表示中のタップ
+   本文表示完了
 ===================================== */
 
-function handleWritingSkip(event) {
+function finishWriting() {
+
+    if (writingFinished) {
+        return;
+    }
+
+
+    writing = false;
+
+    writingFinished = true;
 
 
     /*
-     * 本文を書いている最中だけ
+     * 念のため完全表示
      */
+
+    contractTextImage.classList.add("show");
+
+
+    /*
+     * タップできる状態にする
+     */
+
+    setTimeout(() => {
+
+        paperWrapper.classList.add(
+            "signature-focus"
+        );
+
+        signatureLine.classList.add(
+            "ready"
+        );
+
+    }, 250);
+
+
+    /*
+     * スキップ用イベント解除
+     */
+
+    document.removeEventListener(
+        "click",
+        handleWritingSkip
+    );
+
+}
+
+
+
+/* =====================================
+   文字表示中のタップ
+===================================== */
+
+function handleWritingSkip(event) {
 
     if (
         !writing ||
         writingFinished
     ) {
-
         return;
-
     }
 
 
     /*
-     * 署名欄を押した場合は無視
+     * 署名部分を押した場合は無視
      */
 
     if (
         event.target.closest(
-            "#signature"
+            "#signatureLine"
         )
     ) {
-
         return;
-
     }
 
 
     /*
-     * 一気に完成状態へ
+     * 一気に表示
      */
 
     finishWriting();
@@ -494,62 +356,63 @@ function handleWritingSkip(event) {
 
 
 /* =====================================
-   署名欄
+   署名
 ===================================== */
 
-document
-    .getElementById(
-        "signatureLine"
-    )
-    .addEventListener(
-        "click",
-        signContract
-    );
+signatureLine.addEventListener(
+    "click",
+    signContract
+);
 
 
 
 /* =====================================
-   署名欄をタップ
+   契約に署名
 ===================================== */
 
 function signContract() {
 
-
     if (
-        signing
+        signing ||
+        !writingFinished
     ) {
-
         return;
-
     }
 
 
-    signing =
-        true;
+    signing = true;
 
 
-    const wrapper =
-        document.getElementById(
-            "paperWrapper"
-        );
+    /*
+     * TAPを消す
+     */
+
+    signatureLine.classList.remove(
+        "ready"
+    );
 
 
     /*
      * ズーム解除
      */
 
-    wrapper.classList.remove(
+    paperWrapper.classList.remove(
         "signature-focus"
     );
 
 
     /*
+     * 少し間を置いて
      * 消滅開始
      */
 
-    wrapper.classList.add(
-        "bottom-disappear"
-    );
+    requestAnimationFrame(() => {
+
+        paperWrapper.classList.add(
+            "bottom-disappear"
+        );
+
+    });
 
 
     /*
@@ -559,11 +422,10 @@ function signContract() {
     createBottomMagic();
 
 
-
     /*
      * =================================
      *
-     * ★★★ ここに移動先URLを書く ★★★
+     * 移動先URL
      *
      * =================================
      */
@@ -585,7 +447,6 @@ function signContract() {
 
 function createBottomMagic() {
 
-
     const wrapper =
         document.getElementById(
             "paperWrapper"
@@ -601,7 +462,6 @@ function createBottomMagic() {
         i < 130;
         i++
     ) {
-
 
         const particle =
             document.createElement(
@@ -693,8 +553,5 @@ function createBottomMagic() {
 
 </script>
 
-    document
-    .querySelector(".contract-text-image")
-    .classList.add("show");
 </body>
 </html>
