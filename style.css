@@ -73,6 +73,7 @@ body::before {
         infinite alternate;
 }
 
+
 @keyframes magicAura {
 
     0% {
@@ -91,6 +92,7 @@ body::before {
         opacity: 1;
     }
 }
+
 
 
 /* =====================================
@@ -123,8 +125,9 @@ body::before {
 }
 
 
+
 /* =====================================
-   「さあ、契約を」
+   最初の文字
 ===================================== */
 
 #intro {
@@ -135,6 +138,7 @@ body::before {
 
     text-align: center;
 }
+
 
 .intro-text {
 
@@ -150,14 +154,11 @@ body::before {
             2rem
         );
 
-    letter-spacing:
-        0.35em;
+    letter-spacing: 0.35em;
 
-    padding-left:
-        0.35em;
+    padding-left: 0.35em;
 
-    color:
-        #e8d9ac;
+    color: #e8d9ac;
 
     text-shadow:
         0 0 8px
@@ -168,8 +169,7 @@ body::before {
             0.18
         );
 
-    opacity:
-        0;
+    opacity: 0;
 
     animation:
         introAppear
@@ -178,21 +178,18 @@ body::before {
         forwards;
 }
 
+
 @keyframes introAppear {
 
     0% {
-
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translateY(12px);
     }
 
     100% {
-
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translateY(0);
@@ -200,16 +197,17 @@ body::before {
 }
 
 
+
 /* =====================================
    契約書画面
 ===================================== */
 
 #contract {
-
     padding:
         2vh
         4vw;
 }
+
 
 
 /* =====================================
@@ -218,23 +216,15 @@ body::before {
 
 .paper-wrapper {
 
-    position:
-        relative;
+    position: relative;
 
-    width:
-        82vw;
+    width: 82vw;
+    height: 57vh;
 
-    height:
-        57vh;
+    max-width: 480px;
+    max-height: 500px;
 
-    max-width:
-        480px;
-
-    max-height:
-        500px;
-
-    opacity:
-        0;
+    opacity: 0;
 
     transform:
         scale(0.82)
@@ -245,12 +235,9 @@ body::before {
 
     transition:
 
-        opacity
-        1.2s
-        ease,
+        opacity 1.2s ease,
 
-        transform
-        1.5s
+        transform 1.5s
         cubic-bezier(
             0.16,
             1,
@@ -258,24 +245,21 @@ body::before {
             1
         ),
 
-        filter
-        1.6s
-        ease;
+        filter 1.6s ease;
 
     transform-origin:
         50% 82%;
 }
 
 
+
 /* =====================================
    契約書出現
 ===================================== */
 
-#contract.active
-.paper-wrapper {
+#contract.active .paper-wrapper {
 
-    opacity:
-        1;
+    opacity: 1;
 
     transform:
         scale(1)
@@ -286,21 +270,17 @@ body::before {
 }
 
 
+
 /* =====================================
-   消滅用変数
+   消滅用
 ===================================== */
 
 @property --burn {
-
-    syntax:
-        "<percentage>";
-
-    inherits:
-        true;
-
-    initial-value:
-        0%;
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
 }
+
 
 
 /* =====================================
@@ -309,11 +289,9 @@ body::before {
 
 .paper {
 
-    position:
-        absolute;
+    position: absolute;
 
-    inset:
-        0;
+    inset: 0;
 
     padding:
         2.2vh
@@ -334,37 +312,37 @@ body::before {
         );
 
     clip-path:
-        polygon(
+    polygon(
 
-            2% 1%,
-            98% 1%,
+        2% 1%,
+        98% 1%,
 
-            98% 13%,
-            95.5% 16%,
-            98% 19%,
+        98% 13%,
+        95.5% 16%,
+        98% 19%,
 
-            98% 50%,
+        98% 50%,
 
-            98% 76%,
-            95.8% 79%,
-            98% 82%,
+        98% 76%,
+        95.8% 79%,
+        98% 82%,
 
-            98% 99%,
-            2% 99%,
+        98% 99%,
+        2% 99%,
 
-            2% 72%,
+        2% 72%,
 
-            2% 59%,
-            3.3% 58%,
-            2% 56.5%,
+        2% 59%,
+        3.3% 58%,
+        2% 56.5%,
 
-            2% 51%,
-            5.2% 46.5%,
-            2% 42%,
+        2% 51%,
+        5.2% 46.5%,
+        2% 42%,
 
-            2% 18%,
-            2% 1%
-        );
+        2% 18%,
+        2% 1%
+    );
 
     box-shadow:
 
@@ -379,31 +357,26 @@ body::before {
     transform-origin:
         center center;
 
-    overflow:
-        visible;
+    overflow: visible;
 }
 
 
+
 /* =====================================
-   紙の端
+   紙の端の陰影
 ===================================== */
 
 .paper::before {
 
-    content:
-        "";
+    content: "";
 
-    position:
-        absolute;
+    position: absolute;
 
-    inset:
-        0;
+    inset: 0;
 
-    z-index:
-        4;
+    z-index: 4;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
     background:
 
@@ -461,23 +434,20 @@ body::before {
 }
 
 
+
 /* =====================================
    紙の質感
 ===================================== */
 
 .paper-texture {
 
-    position:
-        absolute;
+    position: absolute;
 
-    inset:
-        0;
+    inset: 0;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
-    opacity:
-        0.35;
+    opacity: 0.35;
 
     background:
 
@@ -519,32 +489,729 @@ body::before {
 }
 
 
+
+/* =====================================
+   ★ 手書き画像 ★
+   
+   ここが今回の重要部分
+===================================== */
+
+.contract-writing {
+
+    position: absolute;
+
+    left: 5%;
+    top: 4%;
+
+    width: 90%;
+
+    height: 92%;
+
+    z-index: 8;
+
+    pointer-events: none;
+}
+
+
+/*
+ * 3つとも全く同じ画像を
+ * 全く同じ場所に置く
+ */
+
+.writing-part {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    opacity: 0;
+}
+
+
+.writing-part img {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: fill;
+
+    display: block;
+}
+
+
+
+/* =====================================
+   題名
+   上から約25%
+===================================== */
+
+.writing-title {
+
+    clip-path:
+        inset(
+            0
+            0
+            75%
+            0
+        );
+
+    transition:
+        opacity 0.8s ease;
+}
+
+
+.writing-title.show {
+
+    opacity: 1;
+
+}
+
+
+
+/* =====================================
+   本文
+   中央約65%
+===================================== */
+
+.writing-body {
+
+    clip-path:
+        inset(
+            25%
+            0
+            10%
+            0
+        );
+
+    /*
+     * 最初は少しぼかして
+     * 透明にする
+     */
+
+    opacity: 0;
+
+    filter:
+        blur(3px);
+
+    transform:
+        translateY(10px);
+
+    transition:
+        opacity 0.15s ease,
+        filter 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/*
+ * 本文がさらさらーっと
+ * 出てくる
+ */
+
+.writing-body.writing {
+
+    opacity: 1;
+
+    filter:
+        blur(0);
+
+    transform:
+        translateY(0);
+
+    animation:
+        handwritingFlow
+        2.6s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        )
+        forwards;
+}
+
+
+/*
+ * 本文表示完了
+ */
+
+.writing-body.complete {
+
+    opacity: 1;
+
+    filter:
+        blur(0);
+
+    transform:
+        translateY(0);
+
+}
+
+
+
+/* =====================================
+   本文の「さらさら感」
+===================================== */
+
+@keyframes handwritingFlow {
+
+    0% {
+
+        opacity: 0;
+
+        filter:
+            blur(4px);
+
+        transform:
+            translateY(14px);
+
+        clip-path:
+            inset(
+                25%
+                0
+                75%
+                0
+            );
+    }
+
+
+    20% {
+
+        opacity: 0.45;
+
+        filter:
+            blur(2px);
+
+        clip-path:
+            inset(
+                25%
+                0
+                60%
+                0
+            );
+    }
+
+
+    45% {
+
+        opacity: 0.72;
+
+        filter:
+            blur(1px);
+
+        clip-path:
+            inset(
+                25%
+                0
+                38%
+                0
+            );
+    }
+
+
+    70% {
+
+        opacity: 0.9;
+
+        filter:
+            blur(0.5px);
+
+        clip-path:
+            inset(
+                25%
+                0
+                18%
+                0
+            );
+    }
+
+
+    100% {
+
+        opacity: 1;
+
+        filter:
+            blur(0);
+
+        transform:
+            translateY(0);
+
+        clip-path:
+            inset(
+                25%
+                0
+                10%
+                0
+            );
+    }
+
+}
+
+
+
+/* =====================================
+   署名
+   下約10%
+===================================== */
+
+.writing-signature {
+
+    clip-path:
+        inset(
+            90%
+            0
+            0
+            0
+        );
+
+    opacity: 0;
+
+    transform:
+        translateY(8px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+
+.writing-signature.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+}
+
+
+
+/* =====================================
+   署名タップ領域
+===================================== */
+
+.signature {
+
+    position: absolute;
+
+    left: 8%;
+    right: 8%;
+
+    bottom: 3.5%;
+
+    z-index: 10;
+
+    height: 12%;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform:
+        translateY(12px)
+        scale(0.92);
+
+    transition:
+
+        opacity
+        0.6s
+        ease,
+
+        transform
+        0.7s
+        cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+        );
+}
+
+
+.signature.ready {
+
+    opacity: 1;
+
+    pointer-events: auto;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    animation:
+        signatureGlow
+        1.1s
+        ease-in-out
+        infinite;
+}
+
+
+
+/* =====================================
+   署名ズーム
+===================================== */
+
+.paper-wrapper.signature-focus {
+
+    transform:
+        translateY(-24vh)
+        scale(2.0);
+
+    transform-origin:
+        50% 82%;
+
+    transition:
+        transform
+        1.2s
+        cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+        );
+}
+
+
+
+/* =====================================
+   ズーム中の紙
+===================================== */
+
+.paper-wrapper.signature-focus .paper {
+
+    box-shadow:
+
+        0 0 35px
+        rgba(
+            230,
+            190,
+            70,
+            0.35
+        ),
+
+        0 0 80px
+        rgba(
+            95,
+            120,
+            255,
+            0.18
+        ),
+
+        0 25px 60px
+        rgba(
+            0,
+            0,
+            0,
+            0.95
+        );
+}
+
+
+
+/* =====================================
+   TAP
+===================================== */
+
+.signature-line {
+
+    position: absolute;
+
+    left: 10%;
+    right: 10%;
+
+    bottom: 0;
+
+    height: 2.2rem;
+
+    cursor: pointer;
+}
+
+
+.signature-line::before {
+
+    content:
+        "TAP";
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 5px;
+
+    transform:
+        translateX(-50%)
+        translateY(4px);
+
+    font-family:
+        "Yu Mincho",
+        "Hiragino Mincho ProN",
+        serif;
+
+    font-size:
+        clamp(
+            0.62rem,
+            2.8vw,
+            0.82rem
+        );
+
+    letter-spacing:
+        0.28em;
+
+    padding-left:
+        0.28em;
+
+    color:
+        rgba(
+            80,
+            45,
+            5,
+            0.9
+        );
+
+    text-shadow:
+
+        0 0 5px
+        rgba(
+            255,
+            230,
+            110,
+            0.8
+        );
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+.signature.ready
+.signature-line::before {
+
+    animation:
+        tapFloat
+        2.4s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes tapFloat {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(5px)
+            scale(0.9);
+    }
+
+    20% {
+
+        opacity: 0.75;
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(1);
+    }
+
+    80% {
+
+        opacity: 0.8;
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(-5px)
+            scale(0.94);
+    }
+}
+
+
+
+/* =====================================
+   署名欄の光
+===================================== */
+
+.signature-line::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        -15px;
+
+    right:
+        -15px;
+
+    bottom:
+        -10px;
+
+    height:
+        18px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            255,
+            225,
+            90,
+            1
+        );
+
+    filter:
+        blur(10px);
+
+    opacity:
+        0;
+
+    animation:
+        signatureLineGlow
+        1s
+        ease-in-out
+        infinite;
+}
+
+
+.signature.ready
+.signature-line::after {
+
+    opacity:
+        1;
+}
+
+
+@keyframes signatureLineGlow {
+
+    0%,
+    100% {
+
+        transform:
+            scaleX(0.75);
+
+        opacity:
+            0.45;
+    }
+
+    50% {
+
+        transform:
+            scaleX(1.05);
+
+        opacity:
+            1;
+    }
+}
+
+
+
+/* =====================================
+   署名欄の発光
+===================================== */
+
+@keyframes signatureGlow {
+
+    0%,
+    100% {
+
+        filter:
+            drop-shadow(
+                0 0 3px
+                rgba(
+                    255,
+                    220,
+                    100,
+                    0.5
+                )
+            );
+
+        opacity: 0.88;
+    }
+
+    50% {
+
+        filter:
+
+            drop-shadow(
+                0 0 8px
+                rgba(
+                    255,
+                    230,
+                    120,
+                    1
+                )
+            )
+
+            drop-shadow(
+                0 0 25px
+                rgba(
+                    255,
+                    220,
+                    80,
+                    0.95
+                )
+            )
+
+            drop-shadow(
+                0 0 45px
+                rgba(
+                    100,
+                    130,
+                    255,
+                    0.65
+                )
+            );
+
+        opacity: 1;
+    }
+}
+
+
+
 /* =====================================
    下端の丸まり
 ===================================== */
 
 .paper-curl {
 
-    position:
-        absolute;
+    position: absolute;
 
-    right:
-        3%;
+    right: 3%;
+    bottom: -1px;
 
-    bottom:
-        -1px;
+    width: 25%;
+    height: 42px;
 
-    width:
-        25%;
+    z-index: 6;
 
-    height:
-        42px;
-
-    z-index:
-        6;
-
-    pointer-events:
-        none;
+    pointer-events: none;
 
     background:
         linear-gradient(
@@ -605,26 +1272,17 @@ body::before {
 
 .paper-curl::before {
 
-    content:
-        "";
+    content: "";
 
-    position:
-        absolute;
+    position: absolute;
 
-    right:
-        4%;
+    right: 4%;
+    bottom: 8%;
 
-    bottom:
-        8%;
+    width: 72%;
+    height: 55%;
 
-    width:
-        72%;
-
-    height:
-        55%;
-
-    border-radius:
-        50%;
+    border-radius: 50%;
 
     background:
         radial-gradient(
@@ -654,26 +1312,17 @@ body::before {
 
 .paper-curl::after {
 
-    content:
-        "";
+    content: "";
 
-    position:
-        absolute;
+    position: absolute;
 
-    right:
-        8%;
+    right: 8%;
+    top: 5%;
 
-    top:
-        5%;
+    width: 65%;
+    height: 18%;
 
-    width:
-        65%;
-
-    height:
-        18%;
-
-    border-radius:
-        50%;
+    border-radius: 50%;
 
     background:
         rgba(
@@ -691,788 +1340,14 @@ body::before {
 }
 
 
-/* =====================================
-   手書き画像 共通
-===================================== */
-
-.contract-text {
-
-    position:
-        absolute;
-
-    left:
-        5%;
-
-    top:
-        4%;
-
-    width:
-        90%;
-
-    height:
-        auto;
-
-    z-index:
-        8;
-
-    display:
-        block;
-
-    pointer-events:
-        none;
-}
-
 
 /* =====================================
-   題名
-   上 25%
-   
-   紙とほぼ同時に出現
-===================================== */
-
-.title-layer {
-
-    clip-path:
-        inset(
-            0
-            0
-            75%
-            0
-        );
-
-    opacity:
-        0;
-
-    filter:
-        blur(3px)
-        brightness(0.8);
-
-    transform:
-        translateY(6px)
-        scale(0.99);
-
-    transition:
-
-        opacity
-        1.0s
-        ease,
-
-        filter
-        1.1s
-        ease,
-
-        transform
-        1.1s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        );
-}
-
-
-/*
- * 契約書が出たら題名表示
- */
-
-#contract.active
-.title-layer {
-
-    opacity:
-        1;
-
-    filter:
-        blur(0)
-        brightness(1);
-
-    transform:
-        translateY(0)
-        scale(1);
-}
-
-
-/* =====================================
-   本文
-   25%〜90%
-===================================== */
-
-.body-layer {
-
-    clip-path:
-        inset(
-            25%
-            0
-            10%
-            0
-        );
-
-    opacity:
-        0;
-
-    /*
-     * 最初は本文部分を
-     * 完全に隠す
-     */
-
-    -webkit-mask-image:
-        linear-gradient(
-            to bottom,
-            transparent 0%,
-            transparent 100%
-        );
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-            transparent 0%,
-            transparent 100%
-        );
-}
-
-
-/* =====================================
-   本文を書いている状態
-===================================== */
-
-.body-layer.writing {
-
-    opacity:
-        1;
-
-    -webkit-mask-image:
-        linear-gradient(
-            to bottom,
-
-            transparent 0%,
-
-            transparent 24%,
-
-            black 25%,
-
-            black 25.5%,
-
-            black 90%,
-
-            transparent 90.5%,
-
-            transparent 100%
-        );
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-
-            transparent 0%,
-
-            transparent 24%,
-
-            black 25%,
-
-            black 25.5%,
-
-            black 90%,
-
-            transparent 90.5%,
-
-            transparent 100%
-        );
-
-    animation:
-        handwritingReveal
-        3.7s
-        cubic-bezier(
-            0.22,
-            0.61,
-            0.36,
-            1
-        )
-        forwards;
-}
-
-
-/*
- * 本文が上から下へ
- * さらさら現れる
- */
-
-@keyframes handwritingReveal {
-
-    0% {
-
-        -webkit-mask-image:
-            linear-gradient(
-                to bottom,
-
-                transparent 0%,
-                transparent 24%,
-
-                black 25%,
-                black 25.5%,
-
-                transparent 26%,
-                transparent 100%
-            );
-
-        mask-image:
-            linear-gradient(
-                to bottom,
-
-                transparent 0%,
-                transparent 24%,
-
-                black 25%,
-                black 25.5%,
-
-                transparent 26%,
-                transparent 100%
-            );
-
-        filter:
-            blur(1.8px);
-    }
-
-
-    15% {
-
-        filter:
-            blur(1.1px);
-    }
-
-
-    35% {
-
-        filter:
-            blur(0.7px);
-    }
-
-
-    60% {
-
-        filter:
-            blur(0.35px);
-    }
-
-
-    85% {
-
-        filter:
-            blur(0.1px);
-    }
-
-
-    100% {
-
-        -webkit-mask-image:
-            linear-gradient(
-                to bottom,
-
-                transparent 0%,
-
-                transparent 24%,
-
-                black 25%,
-
-                black 90%,
-
-                transparent 90.5%,
-
-                transparent 100%
-            );
-
-        mask-image:
-            linear-gradient(
-                to bottom,
-
-                transparent 0%,
-
-                transparent 24%,
-
-                black 25%,
-
-                black 90%,
-
-                transparent 90.5%,
-
-                transparent 100%
-            );
-
-        filter:
-            blur(0);
-    }
-}
-
-
-/* =====================================
-   署名
-   下 10%
-===================================== */
-
-.signature-layer {
-
-    clip-path:
-        inset(
-            90%
-            0
-            0
-            0
-        );
-
-    opacity:
-        0;
-
-    transition:
-        opacity
-        0.8s
-        ease,
-
-        filter
-        0.8s
-        ease;
-}
-
-
-/*
- * 署名表示
- */
-
-.signature-layer.ready {
-
-    opacity:
-        1;
-
-    filter:
-        drop-shadow(
-            0 0 4px
-            rgba(
-                255,
-                220,
-                100,
-                0.5
-            )
-        );
-}
-
-
-/* =====================================
-   署名タップ領域
-===================================== */
-
-.signature-hitarea {
-
-    position:
-        absolute;
-
-    /*
-     * 署名の少し上まで
-     */
-
-    left:
-        10%;
-
-    right:
-        10%;
-
-    bottom:
-        2%;
-
-    height:
-        14%;
-
-    z-index:
-        30;
-
-    border:
-        0;
-
-    padding:
-        0;
-
-    margin:
-        0;
-
-    background:
-        transparent;
-
-    cursor:
-        pointer;
-
-    opacity:
-        0;
-
-    pointer-events:
-        none;
-
-    outline:
-        none;
-
-    transform:
-        scale(0.94);
-
-    transition:
-
-        opacity
-        0.6s
-        ease,
-
-        transform
-        0.7s
-        ease;
-}
-
-
-/*
- * タップ可能
- */
-
-.signature-hitarea.ready {
-
-    opacity:
-        1;
-
-    pointer-events:
-        auto;
-
-    transform:
-        scale(1);
-
-    animation:
-        signatureGlow
-        1.1s
-        ease-in-out
-        infinite;
-}
-
-
-/* =====================================
-   TAP
-===================================== */
-
-.tap-text {
-
-    position:
-        absolute;
-
-    left:
-        50%;
-
-    bottom:
-        5px;
-
-    transform:
-        translateX(-50%)
-        translateY(5px);
-
-    font-family:
-        "Yu Mincho",
-        "Hiragino Mincho ProN",
-        serif;
-
-    font-size:
-        clamp(
-            0.62rem,
-            2.8vw,
-            0.82rem
-        );
-
-    letter-spacing:
-        0.28em;
-
-    padding-left:
-        0.28em;
-
-    color:
-        rgba(
-            80,
-            45,
-            5,
-            0.9
-        );
-
-    text-shadow:
-        0 0 5px
-        rgba(
-            255,
-            230,
-            110,
-            0.8
-        );
-
-    opacity:
-        0;
-
-    pointer-events:
-        none;
-}
-
-
-.signature-hitarea.ready
-.tap-text {
-
-    animation:
-        tapFloat
-        2.4s
-        ease-in-out
-        infinite;
-}
-
-
-@keyframes tapFloat {
-
-    0% {
-
-        opacity:
-            0;
-
-        transform:
-            translateX(-50%)
-            translateY(5px)
-            scale(0.9);
-    }
-
-    20% {
-
-        opacity:
-            0.75;
-    }
-
-    50% {
-
-        opacity:
-            1;
-
-        transform:
-            translateX(-50%)
-            translateY(0)
-            scale(1);
-    }
-
-    80% {
-
-        opacity:
-            0.8;
-    }
-
-    100% {
-
-        opacity:
-            0;
-
-        transform:
-            translateX(-50%)
-            translateY(-5px)
-            scale(0.94);
-    }
-}
-
-
-/* =====================================
-   署名の光
-===================================== */
-
-.signature-hitarea::after {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    left:
-        -15px;
-
-    right:
-        -15px;
-
-    bottom:
-        -10px;
-
-    height:
-        18px;
-
-    border-radius:
-        50%;
-
-    background:
-        rgba(
-            255,
-            225,
-            90,
-            1
-        );
-
-    filter:
-        blur(10px);
-
-    opacity:
-        0;
-
-    animation:
-        signatureLineGlow
-        1s
-        ease-in-out
-        infinite;
-}
-
-
-.signature-hitarea.ready::after {
-
-    opacity:
-        1;
-}
-
-
-@keyframes signatureGlow {
-
-    0%,
-    100% {
-
-        filter:
-            drop-shadow(
-                0 0 3px
-                rgba(
-                    255,
-                    220,
-                    100,
-                    0.5
-                )
-            );
-
-        opacity:
-            0.88;
-    }
-
-    50% {
-
-        filter:
-
-            drop-shadow(
-                0 0 8px
-                rgba(
-                    255,
-                    230,
-                    120,
-                    1
-                )
-            )
-
-            drop-shadow(
-                0 0 25px
-                rgba(
-                    255,
-                    220,
-                    80,
-                    0.95
-                )
-            )
-
-            drop-shadow(
-                0 0 45px
-                rgba(
-                    100,
-                    130,
-                    255,
-                    0.65
-                )
-            );
-
-        opacity:
-            1;
-    }
-}
-
-
-@keyframes signatureLineGlow {
-
-    0%,
-    100% {
-
-        transform:
-            scaleX(0.75);
-
-        opacity:
-            0.45;
-    }
-
-    50% {
-
-        transform:
-            scaleX(1.05);
-
-        opacity:
-            1;
-    }
-}
-
-
-/* =====================================
-   署名へのズーム
-===================================== */
-
-.paper-wrapper.signature-focus {
-
-    transform:
-        translateY(-24vh)
-        scale(2.0);
-
-    transform-origin:
-        50% 82%;
-
-    transition:
-        transform
-        1.2s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        );
-}
-
-
-/* =====================================
-   ズーム中の紙
-===================================== */
-
-.paper-wrapper.signature-focus
-.paper {
-
-    box-shadow:
-
-        0 0 35px
-        rgba(
-            230,
-            190,
-            70,
-            0.35
-        ),
-
-        0 0 80px
-        rgba(
-            95,
-            120,
-            255,
-            0.18
-        ),
-
-        0 25px 60px
-        rgba(
-            0,
-            0,
-            0,
-            0.95
-        );
-}
-
-
-/* =====================================
-   契約書消滅
+   消滅アニメーション
 ===================================== */
 
 .paper-wrapper.bottom-disappear {
 
-    --burn:
-        0%;
+    --burn: 0%;
 
     animation:
         burnPaper
@@ -1487,10 +1362,6 @@ body::before {
 }
 
 
-/* =====================================
-   紙の消滅マスク
-===================================== */
-
 .paper-wrapper.bottom-disappear
 .paper {
 
@@ -1499,8 +1370,7 @@ body::before {
         linear-gradient(
             to top,
 
-            transparent
-            0%,
+            transparent 0%,
 
             transparent
             calc(
@@ -1530,8 +1400,7 @@ body::before {
                 var(--burn) + 7%
             ),
 
-            white
-            100%
+            white 100%
         );
 
     mask-image:
@@ -1539,8 +1408,7 @@ body::before {
         linear-gradient(
             to top,
 
-            transparent
-            0%,
+            transparent 0%,
 
             transparent
             calc(
@@ -1570,25 +1438,18 @@ body::before {
                 var(--burn) + 7%
             ),
 
-            white
-            100%
+            white 100%
         );
 }
 
-
-/* =====================================
-   紙を最後まで消す
-===================================== */
 
 @keyframes burnPaper {
 
     0% {
 
-        --burn:
-            0%;
+        --burn: 0%;
 
-        opacity:
-            1;
+        opacity: 1;
 
         filter:
             brightness(1)
@@ -1597,11 +1458,9 @@ body::before {
 
     100% {
 
-        --burn:
-            120%;
+        --burn: 120%;
 
-        opacity:
-            0;
+        opacity: 0;
 
         filter:
             brightness(2.4)
@@ -1610,37 +1469,30 @@ body::before {
 }
 
 
+
 /* =====================================
-   消滅境界の魔法光
+   消滅境界の光
 ===================================== */
 
 .paper-wrapper.bottom-disappear::after {
 
-    content:
-        "";
+    content: "";
 
-    position:
-        absolute;
+    position: absolute;
 
-    left:
-        -18%;
-
-    right:
-        -18%;
+    left: -18%;
+    right: -18%;
 
     bottom:
         calc(
             var(--burn) - 7%
         );
 
-    height:
-        19%;
+    height: 19%;
 
-    z-index:
-        100;
+    z-index: 100;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
     background:
 
@@ -1652,51 +1504,44 @@ body::before {
                 255,
                 255,
                 1
-            )
-            0%,
+            ) 0%,
 
             rgba(
                 255,
                 250,
                 200,
                 1
-            )
-            7%,
+            ) 7%,
 
             rgba(
                 255,
                 235,
                 120,
                 0.98
-            )
-            18%,
+            ) 18%,
 
             rgba(
                 255,
                 215,
                 65,
                 0.7
-            )
-            35%,
+            ) 35%,
 
             rgba(
                 255,
                 240,
                 170,
                 0.28
-            )
-            48%,
+            ) 48%,
 
-            transparent
-            72%
+            transparent 72%
         );
 
     filter:
         blur(7px)
         brightness(2.5);
 
-    opacity:
-        0;
+    opacity: 0;
 
     animation:
         burnLight
@@ -1714,29 +1559,26 @@ body::before {
 @keyframes burnLight {
 
     0% {
-        opacity:
-            0;
+        opacity: 0;
     }
 
     8% {
-        opacity:
-            1;
+        opacity: 1;
     }
 
     85% {
-        opacity:
-            1;
+        opacity: 1;
     }
 
     100% {
-        opacity:
-            0;
+        opacity: 0;
     }
 }
 
 
+
 /* =====================================
-   消滅中の紙
+   消滅中の発光
 ===================================== */
 
 .paper-wrapper.bottom-disappear
@@ -1794,26 +1636,22 @@ body::before {
 }
 
 
+
 /* =====================================
    魔法粒子
 ===================================== */
 
 .bottom-particle {
 
-    position:
-        absolute;
+    position: absolute;
 
-    z-index:
-        200;
+    z-index: 200;
 
-    display:
-        block;
+    display: block;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
     background:
         #fff4b0;
@@ -1846,8 +1684,7 @@ body::before {
 
     0% {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translate(
@@ -1859,8 +1696,7 @@ body::before {
 
     15% {
 
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translate(
@@ -1872,8 +1708,7 @@ body::before {
 
     45% {
 
-        opacity:
-            0.9;
+        opacity: 0.9;
 
         transform:
             translate(
@@ -1889,8 +1724,7 @@ body::before {
 
     100% {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translate(
@@ -1902,6 +1736,7 @@ body::before {
 }
 
 
+
 /* =====================================
    スマホ
 ===================================== */
@@ -1910,14 +1745,11 @@ body::before {
 
     .paper-wrapper {
 
-        width:
-            82vw;
+        width: 82vw;
 
-        height:
-            55vh;
+        height: 55vh;
 
-        max-height:
-            460px;
+        max-height: 460px;
     }
 
     .paper {
@@ -1928,10 +1760,16 @@ body::before {
             1.5vh;
     }
 
-    .signature-hitarea {
+    .writing-title,
+    .writing-body,
+    .writing-signature {
 
-        bottom:
-            2.5%;
+        /* 画像自体の位置は変えない */
+    }
+
+    .signature {
+
+        bottom: 2.5%;
     }
 
     .paper-wrapper.signature-focus {
@@ -1946,6 +1784,7 @@ body::before {
 }
 
 
+
 /* =====================================
    縦の短いスマホ
 ===================================== */
@@ -1954,14 +1793,11 @@ body::before {
 
     .paper-wrapper {
 
-        width:
-            84vw;
+        width: 84vw;
 
-        height:
-            52vh;
+        height: 52vh;
 
-        max-height:
-            400px;
+        max-height: 400px;
     }
 
     .paper {
@@ -1972,10 +1808,9 @@ body::before {
             1vh;
     }
 
-    .signature-hitarea {
+    .signature {
 
-        bottom:
-            2%;
+        bottom: 2%;
     }
 
     .paper-wrapper.signature-focus {
