@@ -49,7 +49,25 @@
 
 
 <body>
+<!-- =====================================
+     サウンド
+===================================== -->
 
+<audio
+    id="bgm"
+    src="bgm.mp3"
+    loop
+></audio>
+
+<audio
+    id="tapSound"
+    src="tap.mp3"
+></audio>
+
+<audio
+    id="vanishSound"
+    src="vanish.mp3"
+></audio>
 
 <!-- =====================================
      ① 最初の画面
@@ -86,7 +104,7 @@
 
 <!-- 開発用：最終版では削除 -->
 <div class="update-time">
-    2026.08.25 17:32
+    11111111
 </div>
             <!-- 紙の質感 -->
 
@@ -181,7 +199,18 @@ let writing = false;
 let writingFinished = false;
 let signing = false;
 
+const bgm =
+    document.getElementById("bgm");
 
+const tapSound =
+    document.getElementById("tapSound");
+
+const vanishSound =
+    document.getElementById("vanishSound");
+
+    bgm.volume = 0.25;
+tapSound.volume = 0.8;
+vanishSound.volume = 0.7;
 
 /* =====================================
    契約書を表示
@@ -506,6 +535,11 @@ function finishWriting() {
 
 function handleWritingSkip(event) {
 
+    /*
+     * =================================
+     * 本文生成中のタップ
+     * =================================
+     */
 
     if (
         !writing ||
@@ -518,7 +552,7 @@ function handleWritingSkip(event) {
 
 
     /*
-     * 署名部分なら無視
+     * 署名欄へのタップは無視
      */
 
     if (
@@ -532,10 +566,29 @@ function handleWritingSkip(event) {
     }
 
 
+    /*
+     * =================================
+     * ★ ここでイベントを止める
+     *
+     * 本文完成だけを行い、
+     * そのタップで他の処理へ
+     * 進まないようにする
+     * =================================
+     */
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+    bgm.play().catch(() => {});
+    
+    /*
+     * 本文を完成状態にする
+     */
+
     finishWriting();
 
 }
-
 
 
 /* =====================================
@@ -571,7 +624,9 @@ function signContract() {
 
     signing = true;
 
-
+tapSound.currentTime = 0;
+tapSound.play().catch(() => {});
+    
     const wrapper =
         document.getElementById(
             "paperWrapper"
@@ -586,6 +641,8 @@ function signContract() {
         "bottom-disappear"
     );
 
+    vanishSound.currentTime = 0;
+    vanishSound.play().catch(() => {});
 
     /*
      * 下から魔法粒子
