@@ -1622,3 +1622,36 @@ body::before {
             );
     }
 }
+/* =====================================
+   開発用：修正日時
+===================================== */
+
+.update-time {
+
+    position: absolute;
+
+    right: 4%;
+    bottom: 2.5%;
+
+    z-index: 50;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 0.45rem;
+
+    letter-spacing: 0.08em;
+
+    color:
+        rgba(
+            55,
+            32,
+            5,
+            0.45
+        );
+
+    pointer-events: none;
+
+    user-select: none;
+}
