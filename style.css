@@ -492,7 +492,7 @@ body::before {
     transform:
         translateX(-50%);
 
-    width: 80%;
+    width: 90%;
 
     height: auto;
 
@@ -569,7 +569,7 @@ body::before {
         "Great Vibes",
         "Italianno",
         cursive;
-   letter-spacing: 0.04em;
+   letter-spacing: 0.1em;
 /* =====================================
    本文のサイズ。
 ===================================== */
@@ -894,7 +894,7 @@ body::before {
     left: 50%;
     bottom: 3.5%;
 
-    width: 86%;
+    width: 90%;
 
     z-index: 10;
 
@@ -1045,7 +1045,7 @@ body::before {
         absolute;
 
     left:
-        63%;
+        67%;
 
     bottom:
         37px;
