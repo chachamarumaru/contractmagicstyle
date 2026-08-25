@@ -575,9 +575,9 @@ body::before {
 
     font-size:
         clamp(
-            1.25rem,
+            0.9rem,
             3.9vw,
-            1.5rem
+            1.2rem
         );
 
     line-height:
