@@ -138,9 +138,8 @@ body::before {
 .intro-text {
 
     font-family:
-        "Yu Mincho",
-        "Hiragino Mincho ProN",
-        serif;
+        "Italianno",
+        cursive;
 
     font-size:
         clamp(
@@ -615,7 +614,6 @@ body::before {
         0 !important;
 
     font-family:
-        "Great Vibes",
         "Italianno",
         cursive;
 
@@ -923,7 +921,6 @@ body::before {
         0 0 auto;
 
     font-family:
-        "Great Vibes",
         "Italianno",
         cursive;
 
@@ -993,9 +990,8 @@ body::before {
         translateY(4px);
 
     font-family:
-        "Yu Mincho",
-        "Hiragino Mincho ProN",
-        serif;
+        "Italianno",
+        cursive;
 
     font-size:
         clamp(
