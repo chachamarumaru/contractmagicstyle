@@ -576,7 +576,7 @@ body::before {
     font-size:
         clamp(
             1.25rem,
-            4.9vw,
+            3.9vw,
             1.5rem
         );
 
