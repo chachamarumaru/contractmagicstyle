@@ -569,7 +569,7 @@ body::before {
         "Great Vibes",
         "Italianno",
         cursive;
-   letter-spacing: 0.1em;
+   letter-spacing: 0.03em;
 /* =====================================
    本文のサイズ。
 ===================================== */
@@ -582,7 +582,7 @@ body::before {
         );
 
     line-height:
-        1.18;
+        1.4;
 
     color:
         #241507;
@@ -1036,7 +1036,7 @@ body::before {
    TAP
 ===================================== */
 
-.signature::before {
+
 
     content:
         "TAP";
@@ -1045,7 +1045,7 @@ body::before {
         absolute;
 
     left:
-        67%;
+        50%;
 
     bottom:
         37px;
