@@ -104,7 +104,7 @@
 
 <!-- 開発用：最終版では削除 -->
 <div class="update-time">
-    1111
+    22221
 </div>
             <!-- 紙の質感 -->
 
@@ -155,16 +155,13 @@
                  署名
             ================================== -->
 
-<div
-    id="signature"
-    class="signature"
->
+<div id="signature" class="signature">
     <img
         src="contract-text_20260825164117.png"
         class="signature-image"
         alt=""
-        id="signatureLine"
     >
+    <div class="tap-area" id="tapArea"></div>
 </div>
 
 
@@ -503,7 +500,7 @@ function startWriting() {
      * タップしたら完成
      */
 
-   document.addEventListener(
+   document.getElementById("contract").addEventListener(
     "pointerup",
     handleWritingSkip
 );
@@ -587,29 +584,11 @@ function finishWriting() {
 ===================================== */
 function handleWritingSkip(event) {
 
-    if (
-        introPhase ||
-        !writing ||
-        writingFinished ||
-        signing
-    ) {
-        return;
-    }
-
-    /* BGM開始だけで終わった最初のタップは
-       本文スキップに使わない */
-    if (!bgmStarted) {
-        return;
-    }
-
-    if (
-        event.target.closest(".signature")
-    ) {
+    if (!writing || writingFinished) {
         return;
     }
 
     event.preventDefault();
-    event.stopPropagation();
 
     finishWriting();
 }
@@ -619,29 +598,14 @@ function handleWritingSkip(event) {
 ===================================== */
 
 document
-    .getElementById(
-        "signatureLine"
-    )
-    .addEventListener(
-        "pointerup",
-        function(event) {
+    .getElementById("tapArea")
+    .addEventListener("pointerup", function(event) {
 
-            /*
-             * 本文生成中は
-             * 署名処理を絶対に実行しない
-             */
+        event.preventDefault();
+        event.stopPropagation();
 
-            if (writing) {
-                return;
-            }
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            signContract();
-
-        }
-    );
+        signContract();
+    });
 
 
 
