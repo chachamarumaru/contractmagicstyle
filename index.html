@@ -104,7 +104,7 @@
 
 <!-- 開発用：最終版では削除 -->
 <div class="update-time">
-    55553
+    66666
 </div>
             <!-- 紙の質感 -->
 
@@ -537,21 +537,24 @@ function finishWriting() {
 ===================================== */
 function handleWritingSkip(event) {
 
-    if (!writing || writingFinished) {
+    if (
+        !writing ||
+        writingFinished ||
+        signing
+    ) {
         return;
     }
 
-    /*
-     * 本文生成中のタップは
-     * 「本文を完成させる」だけ
-     */
+    if (
+        event.target.closest(".signature")
+    ) {
+        return;
+    }
 
     event.preventDefault();
     event.stopPropagation();
-    event.stopImmediatePropagation();
 
     finishWriting();
-
 }
 
 /* =====================================
