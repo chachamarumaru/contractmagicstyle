@@ -104,7 +104,7 @@
 
 <!-- 開発用：最終版では削除 -->
 <div class="update-time">
-    66666
+    1111
 </div>
             <!-- 紙の質感 -->
 
@@ -199,6 +199,9 @@ let writing = false;
 let writingFinished = false;
 let signing = false;
 
+let introPhase = true;
+let bgmStarted = false;
+
 const bgm =
     document.getElementById("bgm");
 
@@ -209,6 +212,57 @@ const vanishSound =
     document.getElementById("vanishSound");
 
     bgm.volume = 0.25;
+function startBGM() {
+
+    if (bgmStarted) {
+        return;
+    }
+
+    bgm.currentTime = 0;
+
+    const promise = bgm.play();
+
+    if (promise !== undefined) {
+
+        promise
+            .then(() => {
+
+                bgmStarted = true;
+
+            })
+            .catch(() => {
+
+                /* 自動再生ブロック。
+                   最初のユーザー操作で再試行する */
+
+            });
+
+    }
+}
+/* =====================================
+   自動再生成功
+
+→ そのままBGM 🎵
+
+自動再生失敗
+→ 最初のタップ
+→ BGMだけ開始
+→ そのタップでは本文スキップ・署名・消滅は発生しない
+===================================== */
+    document.addEventListener(
+    "pointerup",
+    function startBGMOnFirstTouch(event) {
+
+        if (bgmStarted) {
+            return;
+        }
+
+        startBGM();
+
+    },
+    { capture: true }
+);
+    
 tapSound.volume = 0.8;
 vanishSound.volume = 0.7;
 
@@ -218,6 +272,8 @@ vanishSound.volume = 0.7;
 
 setTimeout(() => {
 
+    introPhase = false;
+
     document
         .getElementById("intro")
         .classList.remove("active");
@@ -225,15 +281,9 @@ setTimeout(() => {
     document
         .getElementById("contract")
         .classList.add("active");
-    
-/* BGM開始 */
-    bgm.currentTime = 0;
-    bgm.play().catch(() => {});
 
-    /*
-     * 紙が出てきてから
-     * 少し待って本文開始
-     */
+    /* 契約書表示と同時にBGM開始を試みる */
+    startBGM();
 
     setTimeout(() => {
 
@@ -538,10 +588,17 @@ function finishWriting() {
 function handleWritingSkip(event) {
 
     if (
+        introPhase ||
         !writing ||
         writingFinished ||
         signing
     ) {
+        return;
+    }
+
+    /* BGM開始だけで終わった最初のタップは
+       本文スキップに使わない */
+    if (!bgmStarted) {
         return;
     }
 
