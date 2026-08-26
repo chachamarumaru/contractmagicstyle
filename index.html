@@ -104,7 +104,7 @@
 
 <!-- 開発用：最終版では削除 -->
 <div class="update-time">
-    444333
+    55553
 </div>
             <!-- 紙の質感 -->
 
@@ -537,37 +537,18 @@ function finishWriting() {
 ===================================== */
 function handleWritingSkip(event) {
 
-    if (
-        !writing ||
-        writingFinished
-    ) {
+    if (!writing || writingFinished) {
         return;
     }
 
-
     /*
-     * 署名欄へのタップは無視
-     */
-    if (
-        event.target.closest("#signature")
-    ) {
-        return;
-    }
-
-
-    /*
-     * ★ 本文スキップ専用
-     *
-     * このタップでは
-     * 「本文を完成させる」だけ。
-     *
-     * 署名欄タップや
-     * 消滅処理には絶対に進まない。
+     * 本文生成中のタップは
+     * 「本文を完成させる」だけ
      */
 
     event.preventDefault();
+    event.stopPropagation();
     event.stopImmediatePropagation();
-
 
     finishWriting();
 
@@ -582,8 +563,24 @@ document
         "signatureLine"
     )
     .addEventListener(
-        "click",
-        signContract
+        "pointerup",
+        function(event) {
+
+            /*
+             * 本文生成中は
+             * 署名処理を絶対に実行しない
+             */
+
+            if (writing) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            signContract();
+
+        }
     );
 
 
