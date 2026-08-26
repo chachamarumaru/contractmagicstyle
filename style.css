@@ -948,7 +948,7 @@ body::before {
     position: absolute;
     width: 100px;
     height: 60px;
-    left: 63%;
+    left: 53%;
     bottom: 15px;
     transform: translateX(-50%);
     pointer-events: auto;
