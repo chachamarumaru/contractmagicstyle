@@ -104,7 +104,7 @@
 
 <!-- 開発用：最終版では削除 -->
 <div class="update-time">
-    222222222
+    333333
 </div>
             <!-- 紙の質感 -->
 
@@ -225,7 +225,10 @@ setTimeout(() => {
     document
         .getElementById("contract")
         .classList.add("active");
-
+    
+/* BGM開始 */
+    bgm.currentTime = 0;
+    bgm.play().catch(() => {});
 
     /*
      * 紙が出てきてから
@@ -450,10 +453,10 @@ function startWriting() {
      * タップしたら完成
      */
 
-    document.addEventListener(
-        "click",
-        handleWritingSkip
-    );
+   document.addEventListener(
+    "pointerup",
+    handleWritingSkip
+);
 
 }
 
@@ -502,9 +505,9 @@ function finishWriting() {
      */
 
     document.removeEventListener(
-        "click",
-        handleWritingSkip
-    );
+    "pointerup",
+    handleWritingSkip
+);
 
 
     /*
@@ -532,64 +535,43 @@ function finishWriting() {
 /* =====================================
    本文表示中のタップ
 ===================================== */
-
 function handleWritingSkip(event) {
-
-    /*
-     * =================================
-     * 本文生成中のタップ
-     * =================================
-     */
 
     if (
         !writing ||
         writingFinished
     ) {
-
         return;
-
     }
 
 
     /*
      * 署名欄へのタップは無視
      */
-
     if (
-        event.target.closest(
-            "#signature"
-        )
+        event.target.closest("#signature")
     ) {
-
         return;
-
     }
 
 
     /*
-     * =================================
-     * ★ ここでイベントを止める
+     * ★ 本文スキップ専用
      *
-     * 本文完成だけを行い、
-     * そのタップで他の処理へ
-     * 進まないようにする
-     * =================================
+     * このタップでは
+     * 「本文を完成させる」だけ。
+     *
+     * 署名欄タップや
+     * 消滅処理には絶対に進まない。
      */
 
     event.preventDefault();
+    event.stopImmediatePropagation();
 
-    event.stopPropagation();
-
-    bgm.play().catch(() => {});
-    
-    /*
-     * 本文を完成状態にする
-     */
 
     finishWriting();
 
 }
-
 
 /* =====================================
    署名欄
@@ -657,12 +639,21 @@ tapSound.play().catch(() => {});
      * =================================
      */
 
-    setTimeout(() => {
+setTimeout(() => {
 
-        window.location.href =
-            "ここにURL";
+    bgm.pause();
+    bgm.currentTime = 0;
 
-    }, 1900);
+    tapSound.pause();
+    tapSound.currentTime = 0;
+
+    vanishSound.pause();
+    vanishSound.currentTime = 0;
+
+    window.location.href =
+        "ここにURL";
+
+}, 1900);
 
 }
 
