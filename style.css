@@ -946,11 +946,13 @@ body::before {
 
 .tap-area {
     position: absolute;
-    width: 90px;
-    height: 45px;
-    right: 8%;
-    top: 35%;
+    width: 100px;
+    height: 60px;
+    left: 63%;
+    bottom: 15px;
+    transform: translateX(-50%);
     pointer-events: auto;
+    z-index: 20;
 }
 
 /* =====================================
