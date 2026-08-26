@@ -934,17 +934,24 @@ body::before {
 ===================================== */
 
 .signature-image {
-
     display: block;
-
     width: 100%;
     height: auto;
-
-    pointer-events: auto;
-
-    cursor: pointer;
+    pointer-events: none;
 }
 
+.signature {
+    pointer-events: none;
+}
+
+.tap-area {
+    position: absolute;
+    width: 90px;
+    height: 45px;
+    right: 8%;
+    top: 35%;
+    pointer-events: auto;
+}
 
 /* =====================================
    署名欄表示
@@ -967,7 +974,6 @@ body::before {
         ease-in-out
         infinite;
 }
-
 
 /* =====================================
    署名欄の発光
