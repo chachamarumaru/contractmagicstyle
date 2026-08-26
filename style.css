@@ -1036,7 +1036,7 @@ body::before {
    TAP
 ===================================== */
 
-
+.signature::before {
 
     content:
         "TAP";
