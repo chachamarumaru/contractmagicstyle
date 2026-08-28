@@ -695,95 +695,49 @@ body::before {
    下端の丸まり
 ===================================== */
 .paper-curl {
-
     position: absolute;
-
-    right: 1.5%;
+    right: 0;
     bottom: 0;
 
-    width: 18%;
-    height: 30px;
+    width: 23%;
+    height: 23%;
 
     z-index: 6;
-
     pointer-events: none;
 
     background:
         linear-gradient(
             135deg,
-            rgba(255, 239, 150, 0.9),
-            rgba(207, 165, 65, 0.8) 55%,
-            rgba(105, 67, 15, 0.65)
+            transparent 0%,
+            transparent 42%,
+            rgba(255, 242, 170, 0.95) 43%,
+            rgba(215, 177, 75, 0.95) 65%,
+            rgba(100, 62, 12, 0.85) 100%
         );
 
-    border-radius:
-        100% 0 18% 8%;
+    clip-path: polygon(
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+
+    transform-origin: bottom right;
 
     transform:
-        perspective(160px)
-        rotateX(22deg)
-        rotateY(-10deg)
-        rotateZ(-2deg);
+        perspective(180px)
+        rotateX(12deg)
+        rotateY(-8deg)
+        rotateZ(-3deg);
 
-    transform-origin:
-        bottom right;
-
-    box-shadow:
-        -3px -2px 5px
-        rgba(255, 240, 160, 0.45),
-
-        3px 5px 9px
-        rgba(45, 25, 3, 0.5);
-
-    opacity: 0.9;
-}
-
-
-.paper-curl::before {
-
-    content: "";
-
-    position: absolute;
-
-    right: 8%;
-    bottom: 18%;
-
-    width: 70%;
-    height: 45%;
-
-    border-radius: 50%;
-
-    background:
-        rgba(74, 45, 7, 0.4);
-
-    filter: blur(4px);
-
-    transform:
-        rotate(-8deg);
-}
-
-
-.paper-curl::after {
-
-    content: "";
-
-    position: absolute;
-
-    right: 10%;
-    top: 8%;
-
-    width: 65%;
-    height: 15%;
-
-    border-radius: 50%;
-
-    background:
-        rgba(255, 246, 181, 0.7);
-
-    filter: blur(3px);
-
-    transform:
-        rotate(-8deg);
+    filter:
+        drop-shadow(
+            -3px -3px 5px
+            rgba(255, 235, 150, 0.5)
+        )
+        drop-shadow(
+            3px 4px 6px
+            rgba(45, 25, 3, 0.45)
+        );
 }
 
 /* =====================================
