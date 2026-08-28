@@ -700,101 +700,27 @@ body::before {
     right: 0;
     bottom: 0;
 
-    width: 24%;
-    height: 26%;
+    width: 22%;
+    height: 18%;
 
-    z-index: 6;
-
+    z-index: 5;
     pointer-events: none;
 
-    background:
-        linear-gradient(
-            135deg,
-            transparent 0%,
-            transparent 35%,
-            rgba(0, 0, 0, 0.12) 36%,
-            rgba(0, 0, 0, 0.28) 48%,
-            rgba(20, 12, 4, 0.45) 65%,
-            rgba(230, 195, 105, 0.9) 82%,
-            #f2d675 100%
-        );
+    background: #05091f;
 
-    clip-path:
-        polygon(
-            100% 0,
-            100% 100%,
-            0 100%
-        );
-
-    transform-origin: bottom right;
+    clip-path: polygon(
+        100% 0,
+        100% 100%,
+        0 100%
+    );
 
     transform:
-        perspective(180px)
-        rotateY(-12deg)
-        rotateX(8deg);
-}
-
-.paper-curl::before {
-    content: "";
-
-    position: absolute;
-
-    right: 0;
-    bottom: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            135deg,
-            transparent 42%,
-            rgba(5, 9, 31, 0.8) 43%,
-            rgba(5, 9, 31, 0.95) 65%,
-            rgba(5, 9, 31, 1) 100%
-        );
-
-    clip-path:
-        polygon(
-            100% 0,
-            100% 100%,
-            35% 100%
-        );
-
-    z-index: -1;
-}
-
-.paper-curl::after {
-    content: "";
-
-    position: absolute;
-
-    right: 4%;
-    bottom: 5%;
-
-    width: 75%;
-    height: 75%;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255, 240, 160, 0.9),
-            rgba(190, 145, 45, 0.7),
-            rgba(80, 48, 8, 0.35)
-        );
-
-    filter: blur(1px);
-
-    transform:
-        rotate(-12deg);
+        rotate(3deg);
 
     box-shadow:
-        -3px -3px 6px
-        rgba(255, 240, 160, 0.45);
+        0 12px 10px
+        rgba(0, 0, 0, 0.55);
 }
-
 /* =====================================
    署名欄
 ===================================== */
