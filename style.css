@@ -948,7 +948,7 @@ body::before {
     position: absolute;
     width: 100px;
     height: 60px;
-    left: 53%;
+    left: 55%;
     bottom: 15px;
     transform: translateX(-50%);
     pointer-events: auto;
@@ -1006,7 +1006,7 @@ body::before {
         filter:
 
             drop-shadow(
-                0 0 8px
+                0 0 12px
                 rgba(
                     255,
                     230,
@@ -1016,22 +1016,22 @@ body::before {
             )
 
             drop-shadow(
-                0 0 25px
+                0 0 35px
                 rgba(
                     255,
                     220,
                     80,
-                    0.95
+                    1
                 )
             )
 
             drop-shadow(
-                0 0 45px
+                0 0 60px
                 rgba(
                     100,
                     130,
                     255,
-                    0.65
+                    0.8
                 )
             );
 
@@ -1053,7 +1053,7 @@ body::before {
         absolute;
 
     left:
-        53%;
+        55%;
 
     bottom:
         37px;
@@ -1068,9 +1068,9 @@ body::before {
 
     font-size:
         clamp(
-            0.62rem,
-            2.8vw,
-            0.82rem
+            0.75rem,
+            3.4vw,
+            1rem
         );
 
     letter-spacing:
