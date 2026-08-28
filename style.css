@@ -696,11 +696,11 @@ body::before {
 ===================================== */
 .paper-curl {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: -1%;
+    bottom: -1%;
 
-    width: 25%;
-    height: 32%;
+    width: 27%;
+    height: 34%;
 
     z-index: 6;
     pointer-events: none;
@@ -710,23 +710,103 @@ body::before {
     background:
         linear-gradient(
             135deg,
-            #f6df8a 0%,
-            #c69b3c 35%,
-            #765019 70%,
-            #d8b75c 100%
+            #f8e49a 0%,
+            #d5b45b 35%,
+            #9a7027 60%,
+            #e5c978 78%,
+            #8a5e1b 100%
         );
 
     transform-origin: bottom right;
 
     transform:
-        rotate(-8deg);
+        perspective(180px)
+        rotateX(18deg)
+        rotateY(-12deg)
+        rotateZ(-8deg);
 
     box-shadow:
-        -5px -3px 8px
-        rgba(255, 235, 150, 0.45),
+        -6px -4px 10px
+        rgba(255, 235, 150, 0.5),
 
-        4px 5px 10px
-        rgba(45, 25, 3, 0.55);
+        5px 7px 12px
+        rgba(45, 25, 3, 0.6);
+}
+
+
+/* 巻き込みの内側 */
+
+.paper-curl::before {
+    content: "";
+
+    position: absolute;
+
+    right: 5%;
+    bottom: 5%;
+
+    width: 55%;
+    height: 55%;
+
+    border-radius: 50%;
+
+    border:
+        8px solid
+        #9a6d25;
+
+    border-left-color:
+        #e3c878;
+
+    border-bottom-color:
+        #d1ad4e;
+
+    background:
+        radial-gradient(
+            circle,
+            #5c3b0c 0%,
+            #8d641f 35%,
+            #d3ae52 65%,
+            transparent 67%
+        );
+
+    box-shadow:
+        inset 2px 2px 5px
+        rgba(255, 240, 170, 0.5),
+
+        3px 3px 8px
+        rgba(45, 25, 3, 0.5);
+
+    transform:
+        rotate(-15deg);
+}
+
+
+/* 巻いた紙の先端 */
+
+.paper-curl::after {
+    content: "";
+
+    position: absolute;
+
+    right: 22%;
+    bottom: 18%;
+
+    width: 24%;
+    height: 24%;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #4b2d08 0%,
+            #704912 45%,
+            #c49a3b 70%,
+            transparent 72%
+        );
+
+    box-shadow:
+        0 0 5px
+        rgba(255, 225, 130, 0.5);
 }
 /* =====================================
    署名欄
