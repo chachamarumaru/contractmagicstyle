@@ -206,40 +206,22 @@ body::before {
 ===================================== */
 
 .paper-wrapper {
+  position: relative;
+  width: min(88vw, 480px);
+  height: min(60vh, 520px);
+  max-width: 480px;
+  max-height: calc(100vh - 40px);
 
-    position: relative;
+  opacity: 0;
+  transform: scale(.82) translateY(35px);
+  filter: brightness(.12);
 
-    width: 82vw;
-    height: 57vh;
+  transition:
+    opacity 1.2s ease,
+    transform 1.5s cubic-bezier(.22,1,.36,1),
+    filter 1.6s ease;
 
-    max-width: 480px;
-    max-height: 500px;
-
-    opacity: 0;
-
-    transform:
-        scale(0.82)
-        translateY(35px);
-
-    filter:
-        brightness(0.12);
-
-    transition:
-
-        opacity 1.2s ease,
-
-        transform 1.5s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        ),
-
-        filter 1.6s ease;
-
-    transform-origin:
-        50% 82%;
+  transform-origin: 50% 82%;
 }
 
 
@@ -553,42 +535,20 @@ body::before {
 ===================================== */
 
 .contract-body {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 27%;
+  z-index: 8;
 
-    position: absolute;
+  text-align: center;
+  font-family: "Great Vibes","Italianno",cursive;
 
-    left: 7%;
-    right: 7%;
+  font-size: clamp(.75rem, 3.5vw, 1.2rem);
+  line-height: 1.35;
 
-    top: 30%;
-
-    z-index: 8;
-
-    text-align: center;
-
-    font-family:
-        "Great Vibes",
-        "Italianno",
-        cursive;
-   letter-spacing: 0.03em;
-/* =====================================
-   本文のサイズ。
-===================================== */
-
-    font-size:
-        clamp(
-            0.9rem,
-            3.9vw,
-            1.2rem
-        );
-
-    line-height:
-        1.4;
-
-    color:
-        #241507;
-
-    visibility:
-        hidden;
+  color: #241507;
+  visibility: hidden;
 }
 
 
@@ -1475,97 +1435,8 @@ body::before {
 }
 
 
-/* =====================================
-   スマホ
-===================================== */
-
-@media (max-height: 700px) {
-
-    .paper-wrapper {
-
-        width: 82vw;
-
-        height: 55vh;
-
-        max-height: 460px;
-    }
-
-    .paper {
-
-        padding:
-            2vh
-            4.5vw
-            1.5vh;
-    }
-
-    .contract-body {
-
-        font-size:
-            clamp(
-                1.08rem,
-                4.8vw,
-                1.4rem
-            );
-    }
-
-    .final-title {
-
-        font-size:
-            clamp(
-                1.85rem,
-                8.5vw,
-                2.6rem
-            );
-    }
-}
 
 
-/* =====================================
-   縦の短いスマホ
-===================================== */
-
-@media (max-height: 600px) {
-
-    .paper-wrapper {
-
-        width: 84vw;
-
-        height: 52vh;
-
-        max-height: 400px;
-    }
-
-    .paper {
-
-        padding:
-            1.5vh
-            4vw
-            1vh;
-    }
-
-    .contract-body {
-
-        font-size:
-            clamp(
-                0.98rem,
-                4.3vw,
-                1.18rem
-            );
-
-        line-height:
-            1.08;
-    }
-
-    .final-title {
-
-        font-size:
-            clamp(
-                1.6rem,
-                8vw,
-                2.3rem
-            );
-    }
-}
 /* =====================================
    開発用：修正日時
 ===================================== */
